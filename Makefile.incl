@@ -33,7 +33,8 @@ AM_CPPFLAGS =					\
 
 AM_CFLAGS = -Wall -Wextra -Wshadow -Wredundant-decls -Wdisabled-optimization -Wpointer-arith -Wstrict-aliasing -Wcast-align 
 
-AM_CXXFLAGS = $(AM_CFLAGS)
+# jys added -s below to strip debug 
+AM_CXXFLAGS = $(AM_CFLAGS) -s
 
 AM_LDFLAGS =
 

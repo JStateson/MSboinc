@@ -454,6 +454,8 @@ int CC_CONFIG::parse_options_client(XML_PARSER& xp) {
         if (xp.parse_bool("use_certs", use_certs)) continue;
         if (xp.parse_bool("use_certs_only", use_certs_only)) continue;
         if (xp.parse_bool("vbox_window", vbox_window)) continue;
+        if (xp.parse_int("spoof_gpus", NumSpoofGPUs)) continue; //jys
+
 
         // The following 3 tags have been moved to nvc_config and
         // NVC_CONFIG_FILE, but CC_CONFIG::write() in older clients 
@@ -467,7 +469,7 @@ int CC_CONFIG::parse_options_client(XML_PARSER& xp) {
         msg_printf_notice(NULL, false,
             "https://boinc.berkeley.edu/manager_links.php?target=notice&controlid=config",
             "%s: <%s>",
-            _("Unrecognized tag in cc_config.xml"),
+            _("0Unrecognized tag in cc_config.xml"),
             xp.parsed_tag
         );
         xp.skip_unexpected(true, "CC_CONFIG::parse_options");
@@ -522,7 +524,7 @@ int CC_CONFIG::parse_client(FILE* f) {
         msg_printf_notice(NULL, false,
             "https://boinc.berkeley.edu/manager_links.php?target=notice&controlid=config",
             "%s: <%s>",
-            _("Unrecognized tag in cc_config.xml"),
+            _("1Unrecognized tag in cc_config.xml"),
             xp.parsed_tag
         );
         xp.skip_unexpected(true, "CC_CONFIG.parse");

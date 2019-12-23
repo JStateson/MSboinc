@@ -237,7 +237,10 @@ static void init_core_client(int argc, char** argv) {
     if (cc_config.NumSpoofGPUs != -1 )
     {
         if(gstate.spoof_gpus == -1)
+        {
              gstate.spoof_gpus = cc_config.NumSpoofGPUs; // jys switch takes precedince over the config file
+             msg_printf(NULL,MSG_INFO, " Requesting work for %d GPUs",gstate.spoof_gpus);
+        }
     }
     // NOTE: this must be called BEFORE newer_version_startup_check()
     //
