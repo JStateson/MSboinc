@@ -119,7 +119,9 @@ struct LOG_FLAGS {
     bool unparsed_xml;
         // show unparsed XML lines
     bool work_fetch_debug;
-        // work fetch policy 
+        // work fetch policy
+
+    bool mw_debug; //jys
 
     LOG_FLAGS(){}
     void init();

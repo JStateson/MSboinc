@@ -97,6 +97,7 @@ void LOG_FLAGS::show() {
     show_flag(buf, sizeof(buf), proxy_debug, "proxy_debug");
     show_flag(buf, sizeof(buf), rr_simulation, "rr_simulation");
     show_flag(buf, sizeof(buf), sched_op_debug, "sched_op_debug");
+    show_flag(buf, sizeof(buf), mw_debug, "mw_debug");
     show_flag(buf, sizeof(buf), scrsave_debug, "scrsave_debug");
     show_flag(buf, sizeof(buf), slot_debug, "slot_debug");
     show_flag(buf, sizeof(buf), state_debug, "state_debug");

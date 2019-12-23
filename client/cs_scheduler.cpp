@@ -97,7 +97,7 @@ int CLIENT_STATE::make_scheduler_request(PROJECT* p) {
         static int MW_wait_interval = 0x100;
         static int MW_LOW_WATER_pct = 1;
         static int MW_HIGH_WATER_pct = 0x10;
-        static bool mw_log = 0;
+        static bool mw_log = log_flags.mw_debug;
         static int Patchmarker2 = 0x55aa55aa;
         double NotStarted = 0.0;
         double InProgress = 0.0;
@@ -107,6 +107,8 @@ int CLIENT_STATE::make_scheduler_request(PROJECT* p) {
         static bool bInitRatio = true;
         static bool bEmptyWater = false;
         int jPN, iGPU;
+
+        gstate.enable_mw_delay |= mw_log;
 
         if (gstate.enable_mw_delay)
         {

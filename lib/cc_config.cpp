@@ -102,6 +102,7 @@ int LOG_FLAGS::parse(XML_PARSER& xp) {
         if (xp.parse_bool("trickle_debug", trickle_debug)) continue;
         if (xp.parse_bool("unparsed_xml", unparsed_xml)) continue;
         if (xp.parse_bool("work_fetch_debug", work_fetch_debug)) continue;
+        if (xp.parse_bool("mw_debug", mw_debug))continue;
         xp.skip_unexpected(true, "LOG_FLAGS::parse");
     }
     return ERR_XML_PARSE;
@@ -152,6 +153,7 @@ int LOG_FLAGS::write(MIOFILE& out) {
         "        <trickle_debug>%d</trickle_debug>\n"
         "        <unparsed_xml>%d</unparsed_xml>\n"
         "        <work_fetch_debug>%d</work_fetch_debug>\n"
+        "        <mw_debug>%d</mw_debug>\n" //jys
         "    </log_flags>\n",
         file_xfer ? 1 : 0,
         sched_ops ? 1 : 0,
@@ -194,7 +196,8 @@ int LOG_FLAGS::write(MIOFILE& out) {
         time_debug ? 1 : 0,
         trickle_debug ? 1 : 0,
         unparsed_xml ? 1 : 0,
-        work_fetch_debug ? 1 : 0
+        work_fetch_debug ? 1 : 0,
+        mw_debug ? 1 : 0
     );
     return 0;
 }

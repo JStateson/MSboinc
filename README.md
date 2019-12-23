@@ -13,6 +13,10 @@ Usage: boinc [options]
 This project is named master - slave as the intent is to use the project information at \ProjectData\Boinc (or /var/lib/boinc) as a master and make copies of it using an incrementing hostname, same password, and incrementing RPC port to create and run multiple clients. This is useful if a project goes offline and spoofing the number of GPUs does not provide an adaquate number of work units to continue crunching during the outage. The scripts, bash and cmd, to perform this function are under construction.
 
 
+The Milkyway bug fix is automatically enabled if the following debug flag is created
+<mw_debug>1<mw_debug>
+If the debug variable is set to 0 then you must use the startup parameter --mw_bug_fix to enable the feature.
+
 # License
 BOINC is free software; you can redistribute it and/or modify it
 under the terms of the GNU Lesser General Public License
