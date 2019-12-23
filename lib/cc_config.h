@@ -166,7 +166,6 @@ struct CC_CONFIG {
     bool fetch_minimal_work;
     bool fetch_on_update;
     std::string force_auth;
-    std::string cc_gui_rpc_password;
     bool http_1_0;
     int http_transfer_timeout_bps;
     int http_transfer_timeout;

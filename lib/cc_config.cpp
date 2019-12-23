@@ -231,7 +231,6 @@ void CC_CONFIG::defaults() {
     fetch_minimal_work = false;
     fetch_on_update = false;
     force_auth = "default";
-    cc_gui_rpc_password = "";
     http_1_0 = false;
     http_transfer_timeout = 300;
     http_transfer_timeout_bps = 10;
@@ -382,7 +381,6 @@ int CC_CONFIG::parse_options(XML_PARSER& xp) {
             downcase_string(force_auth);
             continue;
         }
-        if (xp.parse_string("set_gui_rpc_password",cc_gui_rpc_password)) continue; //jys
         if (xp.parse_bool("http_1_0", http_1_0)) continue;
         if (xp.parse_int("http_transfer_timeout", http_transfer_timeout)) continue;
         if (xp.parse_int("http_transfer_timeout_bps", http_transfer_timeout_bps)) continue;
@@ -593,7 +591,6 @@ int CC_CONFIG::write(MIOFILE& out, LOG_FLAGS& log_flags) {
         "        <fetch_minimal_work>%d</fetch_minimal_work>\n"
         "        <fetch_on_update>%d</fetch_on_update>\n"
         "        <force_auth>%s</force_auth>\n"
-        "        <set_gui_rpc_password>%s</set_gui_rpc_password>\n" // jys
         "        <http_1_0>%d</http_1_0>\n"
         "        <http_transfer_timeout>%d</http_transfer_timeout>\n"
         "        <http_transfer_timeout_bps>%d</http_transfer_timeout_bps>\n",
@@ -603,7 +600,6 @@ int CC_CONFIG::write(MIOFILE& out, LOG_FLAGS& log_flags) {
         fetch_minimal_work,
         fetch_on_update,
         force_auth.c_str(),
-        cc_gui_rpc_password.c_str(), // jys
         http_1_0,
         http_transfer_timeout,
         http_transfer_timeout_bps
