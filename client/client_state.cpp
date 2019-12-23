@@ -140,6 +140,9 @@ CLIENT_STATE::CLIENT_STATE()
     safe_strcpy(main_host_venue, "");
     safe_strcpy(attach_project_url, "");
     safe_strcpy(attach_project_auth, "");
+    safe_strcpy(set_hostname, "");     // jys
+    safe_strcpy(set_password, "");     // jys
+    safe_strcpy(ProjectStarted, "");   // jys
     cpu_run_mode.set(RUN_MODE_AUTO, 0);
     gpu_run_mode.set(RUN_MODE_AUTO, 0);
     network_run_mode.set(RUN_MODE_AUTO, 0);
@@ -1410,6 +1413,7 @@ int CLIENT_STATE::link_result(PROJECT* p, RESULT* rp) {
 void CLIENT_STATE::print_summary() {
     unsigned int i;
     double t;
+    static bool bSD = false; // jys show less detail
 
     msg_printf(0, MSG_INFO, "[state] Client state summary:");
     msg_printf(0, MSG_INFO, "%d projects:", (int)projects.size());
@@ -1422,27 +1426,27 @@ void CLIENT_STATE::print_summary() {
         }
     }
     msg_printf(0, MSG_INFO, "%d file_infos:", (int)file_infos.size());
-    for (i=0; i<file_infos.size(); i++) {
+    for (i=0; i<file_infos.size() && bSD; i++) {
         msg_printf(0, MSG_INFO, "    %s status:%d %s", file_infos[i]->name, file_infos[i]->status, file_infos[i]->pers_file_xfer?"active":"inactive");
     }
     msg_printf(0, MSG_INFO, "%d app_versions", (int)app_versions.size());
-    for (i=0; i<app_versions.size(); i++) {
+    for (i=0; i<app_versions.size() && bSD; i++) {
         msg_printf(0, MSG_INFO, "    %s %d", app_versions[i]->app_name, app_versions[i]->version_num);
     }
     msg_printf(0, MSG_INFO, "%d workunits", (int)workunits.size());
-    for (i=0; i<workunits.size(); i++) {
+    for (i=0; i<workunits.size() && bSD; i++) {
         msg_printf(0, MSG_INFO, "    %s", workunits[i]->name);
     }
     msg_printf(0, MSG_INFO, "%d results", (int)results.size());
-    for (i=0; i<results.size(); i++) {
+    for (i=0; i<results.size() && bSD; i++) {
         msg_printf(0, MSG_INFO, "    %s state:%d", results[i]->name, results[i]->state());
     }
     msg_printf(0, MSG_INFO, "%d persistent file xfers", (int)pers_file_xfers->pers_file_xfers.size());
-    for (i=0; i<pers_file_xfers->pers_file_xfers.size(); i++) {
+    for (i=0; i<pers_file_xfers->pers_file_xfers.size() && bSD; i++) {
         msg_printf(0, MSG_INFO, "    %s http op state: %d", pers_file_xfers->pers_file_xfers[i]->fip->name, (pers_file_xfers->pers_file_xfers[i]->fxp?pers_file_xfers->pers_file_xfers[i]->fxp->http_op_state:-1));
     }
     msg_printf(0, MSG_INFO, "%d active tasks", (int)active_tasks.active_tasks.size());
-    for (i=0; i<active_tasks.active_tasks.size(); i++) {
+    for (i=0; i<active_tasks.active_tasks.size() && bSD; i++) {
         msg_printf(0, MSG_INFO, "    %s", active_tasks.active_tasks[i]->result->name);
     }
 }

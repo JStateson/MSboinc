@@ -1,34 +1,17 @@
-# Status
 
-[![Build Status](https://travis-ci.org/BOINC/boinc.svg?branch=master)](https://travis-ci.org/BOINC/boinc) [![Build status](https://ci.appveyor.com/api/projects/status/9dgoc9h5ppos8vcy/branch/master?svg=true)](https://ci.appveyor.com/project/BOINC/boinc/branch/master) [![Coverity Scan Build Status](https://scan.coverity.com/projects/4226/badge.svg)](https://scan.coverity.com/projects/boinc-boinc) [![codecov](https://codecov.io/gh/BOINC/boinc/branch/master/graph/badge.svg)](https://codecov.io/gh/BOINC/boinc) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/BOINC/boinc/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/BOINC/boinc/?branch=master)
+WARNING - USE THIS PROGRAM AT YOUR OWN RISK. If you use the bunkering feature be aware that you must only crunch the project you want to bunker and no others. Questions to josephy@stateson.net.
+The sources here are based on 7.16.3 with changes to implement the following features
+Usage: boinc [options]
+--set_hostname <name>          use this as hostname    
+--set_password <password>      rpc gui password    
+--set_backoff N                set backoff to this value    
+--spoof_gpus N                 fake number of gpus    
+--set_bunker_cnt <project> N   bunker this many workunits for given project then quit    
+--mw_bug_fix                   delay attaching output to allow new work to download (Milkyway only)
+--bunker_time_string <text>    unix time cutoff for reporting - used with bunker
+                               in this format exactly:  "11/24/2019T10:41:29"
+This project is named master - slave as the intent is to use the project information at \ProjectData\Boinc (or /var/lib/boinc) as a master and make copies of it using an incrementing hostname, same password, and incrementing RPC port to create and run multiple clients. This is useful if a project goes offline and spoofing the number of GPUs does not provide an adaquate number of work units to continue crunching during the outage. The scripts, bash and cmd, to perform this function are under construction.
 
-# Social
-
-[![Slack](https://img.shields.io/badge/slack-boincworkspace-blue?logo=slack)](https://join.slack.com/t/boincworkspace/shared_invite/enQtNzA3MTQ4NDA0Njc4LTM4NTEyZTY1MWEwZjAyNTVmOTg3NDA2NjVjZDQzMWQ3NmFjYTc4MTNkNTEyNjRkOTQ4MWU5Nzk3NzRhNTg0NDI) [![Discord](https://img.shields.io/badge/discord-boincnetwork-blue?logo=discord)](https://discord.gg/wPRafUq)
-
-# BOINC
-
-Project Website: https://boinc.berkeley.edu
-
-## Want to create a project
-See: https://boinc.berkeley.edu/trac/wiki
-
-## Want to help
-Read about all the [ways you can help](CONTRIBUTING.md)
-
-### Note
-
-The University of California holds the copyright on all BOINC source code. By 
-submitting contributions to the BOINC code, you irrevocably assign all right, 
-title, and interest, including copyright and all copyright rights, in such 
-contributions to The Regents of the University of California, who may then 
-use the code for any purpose that it desires. 
-
-## Reporting Security Issues
-We strongly encourage you to report security problems to our private mailing 
-list and not by posting an issue.  You can do this by sending an email to 
-boinc_pmc@googlegroups.com.  This will be privately sent to the members of the 
-BOINC Project Management Committee.
 
 # License
 BOINC is free software; you can redistribute it and/or modify it

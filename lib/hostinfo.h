@@ -55,6 +55,7 @@ public:
     char serialnum[256];
     char ip_addr[256];
     char host_cpid[64];
+    char new_hostname[256]; //jys
 
     int p_ncpus;
     char p_vendor[256];
@@ -102,7 +103,7 @@ public:
         *this = x;
     }
     int parse(XML_PARSER&, bool static_items_only = false);
-    int write(MIOFILE&, bool include_net_info, bool include_coprocs);
+    int write(MIOFILE&, bool include_net_info, bool include_coprocs, int iGPU); //jys
     int parse_cpu_benchmarks(FILE*);
     int write_cpu_benchmarks(FILE*);
     void print();
@@ -118,6 +119,7 @@ public:
     int get_cpu_count();
     int get_memory_info();
     int get_os_info();
+    void set_domainname(char *name);   //jys
     int get_host_battery_charge();
     int get_host_battery_state();
     int get_local_network_info();

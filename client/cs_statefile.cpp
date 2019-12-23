@@ -727,7 +727,7 @@ int CLIENT_STATE::write_state(MIOFILE& f) {
     exit(1);
 #endif
     f.printf("<client_state>\n");
-    retval = host_info.write(f, true, true);
+    retval = host_info.write(f, true, true, 0); //jys
     if (retval) return retval;
     retval = time_stats.write(f, false);
     if (retval) return retval;
@@ -977,7 +977,7 @@ int CLIENT_STATE::write_state_gui(MIOFILE& f) {
 
     f.printf("<client_state>\n");
 
-    retval = host_info.write(f, true, true);
+    retval = host_info.write(f, true, true, 0); //jys
     if (retval) return retval;
 
     // the following are for compatibility with old managers

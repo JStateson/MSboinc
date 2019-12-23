@@ -85,6 +85,49 @@ int CLIENT_STATE::make_scheduler_request(PROJECT* p) {
     unsigned int i;
     RESULT* rp;
 
+        // jys mod for milkyway project
+        // do not attach any results unless 91 seconds have elapsed
+        //
+        static double TimeLastResultsAttached = 0;
+        static bool bSetLastResultTime = false;
+        double SchReqTime = dtime();
+        static bool bIsMilkyway = false;
+        static bool bAttachOutput = true;
+        static int Patchmarker1 = 0x55aa55aa; // might want to patch in below constants
+        static int MW_wait_interval = 0x100;
+        static int MW_LOW_WATER_pct = 1;
+        static int MW_HIGH_WATER_pct = 0x10;
+        static bool mw_log = 0;
+        static int Patchmarker2 = 0x55aa55aa;
+        double NotStarted = 0.0;
+        double InProgress = 0.0;
+        static double mw_low, mw_high;
+        static double mw_last_results_sent = 0;
+        double mw_elapsed_results_sent = 0;
+        static bool bInitRatio = true;
+        static bool bEmptyWater = false;
+        int jPN, iGPU;
+
+        if (gstate.enable_mw_delay)
+        {
+                // jys make sure it is milkyway project
+#ifdef WIN32
+                jPN = _stricmp(p->project_name, "milkyway@home");
+#else
+                jPN = strcasecmp(p->project_name, "milkyway@home");
+#endif
+                bIsMilkyway = (jPN == 0);
+                if (bIsMilkyway)SchReqTime = dtime();
+                if (bInitRatio)
+                {
+                        mw_low = MW_LOW_WATER_pct / 100.0;
+                        mw_high = MW_HIGH_WATER_pct / 100.0;
+                        bInitRatio = false;
+                        msg_printf(p, MSG_INFO, "Using %d for low water and %d for high water pcts with delay(secs)%d",
+                                MW_LOW_WATER_pct, MW_HIGH_WATER_pct, MW_wait_interval);
+                }
+        }
+
     get_sched_request_filename(*p, buf, sizeof(buf));
     FILE* f = boinc_fopen(buf, "wb");
     if (!f) return ERR_FOPEN;
@@ -216,7 +259,8 @@ int CLIENT_STATE::make_scheduler_request(PROJECT* p) {
     //
     host_info.get_host_info(false);
     set_ncpus();
-    host_info.write(mf, !cc_config.suppress_net_info, false);
+    iGPU = (gstate.spoof_gpus == -1) ? 0 : gstate.spoof_gpus;
+    host_info.write(mf, !cc_config.suppress_net_info, false, iGPU);
 
     // get and write disk usage
     //
@@ -233,26 +277,85 @@ int CLIENT_STATE::make_scheduler_request(PROJECT* p) {
 
     if (coprocs.n_rsc > 1) {
         work_fetch.copy_requests();
-        coprocs.write_xml(mf, true);
+                if (gstate.spoof_gpus != -1) // jys
+                {
+                        //the folloiwng need to be investigated.  possibly a larger first batch of work units can be obtained
+                        //but dont know exactly what these "instances" do
+                        //coprocs.ati.req_instances = iGPU * GPU_PERFORMANCE;
+                        //coprocs.nvidia.req_instances = iGPU * GPU_PERFORMANCE;
+                }
+
+        coprocs.write_xml(mf, true, iGPU);
     }
 
-    // report completed jobs
+
+        if (bIsMilkyway)
+        {
+                if (bSetLastResultTime)
+                {
+                        mw_elapsed_results_sent = SchReqTime - mw_last_results_sent;
+                }
+                else mw_elapsed_results_sent = MW_wait_interval;
+                bAttachOutput = mw_elapsed_results_sent >= MW_wait_interval;
+                if (!bAttachOutput) // may want to override so as to not get any more tasks for a while
+                {
+                        p->get_task_durs(NotStarted, InProgress);
+                        // see if we hit the high water mark.  may never happen but need to be safe
+                        if (InProgress > NotStarted * mw_high)
+                                bEmptyWater = true;     // cant let it build up too much
+                        if (InProgress < NotStarted * mw_low)
+                                bEmptyWater = false;
+                        bAttachOutput = bEmptyWater;
+                        if (mw_log)
+                                msg_printf(0, MSG_INFO, "[MILKYWAY] InProgress:%8.2f  NotStarted: %8.2f high:%6.1f  low:%6.1f",
+                                InProgress, NotStarted, NotStarted*mw_high, NotStarted*mw_low);
+                }
+                // always attach on a user reqwuested update so as to upload results
+                if (p->sched_rpc_pending == RPC_REASON_USER_REQ)
+                        bAttachOutput = true;
+        }
+        else bAttachOutput = true;
+        if (bIsMilkyway)
+        {
+            TimeLastResultsAttached = SchReqTime;
+                if  (mw_log)
+                        msg_printf(0, MSG_INFO, "[MW] TOD:%9.2f  Attach: %s  Elapsed: %6.2f  OverrideAttach:%s",
+                        SchReqTime, bAttachOutput ? "true" : "false", mw_elapsed_results_sent, (p->sched_rpc_pending == RPC_REASON_USER_REQ) ? "true" : "false");
+         }
+
+
+
+   // report completed jobs
     //
     unsigned int last_reported_index = 0;
-    p->nresults_returned = 0;
-    for (i=0; i<results.size(); i++) {
-        rp = results[i];
-        if (rp->project == p && rp->ready_to_report) {
-            p->nresults_returned++;
-            rp->write(mf, true);
+        if (bAttachOutput) //jys
+        {
+                p->nresults_returned = 0;
+                for (i = 0; i<results.size(); i++) {
+                        rp = results[i];
+                        if (rp->project == p && rp->ready_to_report) {
+                                p->nresults_returned++;
+                                rp->write(mf, true);
+                        }
+                        if (cc_config.max_tasks_reported
+                                && (p->nresults_returned >= cc_config.max_tasks_reported)
+                                ) {
+                                last_reported_index = i;
+                                break;
+                        }
+                }
         }
-        if (cc_config.max_tasks_reported
-            && (p->nresults_returned >= cc_config.max_tasks_reported)
-        ) {
-            last_reported_index = i;
-            break;
+
+        if (bIsMilkyway && bAttachOutput) //jys
+        {
+                mw_last_results_sent = SchReqTime;
+                bSetLastResultTime = true;
+                if (mw_log)
+                        msg_printf(0, MSG_INFO, "[MW] %s  Attach: %s Number Attached:%d  Elapsed: %6.2f  Emptying:%s",
+                        p->project_name, bAttachOutput ? "true" : "false", p->nresults_returned, mw_elapsed_results_sent,
+                        bEmptyWater ? "true" : "false");
         }
-    }
+
 
     read_trickle_files(p, f);
 
@@ -433,6 +536,22 @@ bool CLIENT_STATE::scheduler_rpc_poll() {
     static double last_work_fetch_time = 0;
     double elapsed_time;
 
+
+    // jys bunker stuff
+    bool bBunkerEnabled = gstate.BunkerThreshold > 0;
+    static bool bWaitForEmpty = false;
+    static bool b1 = true;
+    static bool b2 = true;
+    static bool bMustShowStatus = true;
+    static double last_show_status = 0;
+        double NotStarted = 0.0;
+        double InProgress = 0.0; // when this  goes to 0.0 we are done with all units [used only in bunkering]
+        static int iMpy = 5;
+        static PROJECT *BunkeredProject;
+        static bool bListOnce = true; // want to get exact spelling of project name for lookup purpose even though all projects bunkered
+
+
+
     // are we currently doing a scheduler RPC?
     // If so, see if it's finished
     //
@@ -441,6 +560,70 @@ bool CLIENT_STATE::scheduler_rpc_poll() {
         scheduler_op->poll();
         return (scheduler_op->state == SCHEDULER_OP_STATE_IDLE);
     }
+
+        if (bListOnce) // jys show what we are doing at startup
+        {
+                bListOnce = false;
+                ListProjects();
+                msg_printf(0, MSG_INFO, "%s bunkering; spoofing:%s; MWfix:%s", bBunkerEnabled ? gstate.ProjectStarted : "NOT", (gstate.spoof_gpus == -1) ? "no" : "yes",
+                        gstate.enable_mw_delay ? "yes" : "no");
+                if (BunkerTime >= 0)
+                {
+                        time_t t = BunkerTime;
+                        msg_printf(0, MSG_INFO, " Enableing cutoff:%s;  You specified a cutoff time of:%s and actual cutoff is:%s please verify.", //jys
+                                bUseCutoff ? "TRUE" : "FALSE", bunker_time_string, asctime(localtime(&t)));
+                        // jys - try to set priority of items below cutoff so they execute first and avoid deleting or marking cooproc as not available.
+                        // however, once the bunker count has been reached either delete those items or make sure they all execute first, report and then exit
+                        // TODO:  right now the program exits and those work units will be reported as missing. maybe use "report immediately" for all below cutoff might help
+                }
+        }
+
+    if (bBunkerEnabled)
+    {
+        if (bWaitForEmpty)
+        {  // every 5 minutes show status then ever 1 minute near end of bunkering
+            cc_config.exit_when_idle = true;
+            had_or_requested_work = true;
+            elapsed_time = now - last_show_status;
+            if (!clock_change && elapsed_time < iMpy * WORK_FETCH_PERIOD) return false;
+                        BunkeredProject->get_task_durs(NotStarted, InProgress);
+            msg_printf(0, MSG_INFO, "Signaled we want to exit:%d  WUs:%d  IP:%8.2f NS:%8.2f BelowCutoff:%d",
+                                gstate.results.size(), gstate.workunits.size(),NotStarted, InProgress, NumUnderCutoff);
+                        //jys unaccountably results and workunits are identical so cannot be used to see when all workunits are completed
+                        // must test IP and NS TODO:  test under cutoff and allow them to report
+                        InProgress += NotStarted;
+                        if (InProgress < 4000) iMpy = 1;
+                        if (InProgress == 0.0)
+                        {
+                                // signal exit timer thread
+                                // after exiting no-new-work is enabled but the network is NOT suspended
+                                exit_after_app_start_secs = 1;
+                        }
+            last_show_status = now;
+            return false;
+        }
+        if (gstate.results.size() > gstate.BunkerThreshold)
+        {
+            bWaitForEmpty = true;
+            if (b1)
+            {
+                                BunkeredProject = FindProject(gstate.ProjectStarted);
+                                if(!BunkeredProject)
+                                        msg_printf(0, MSG_INFO,
+                                                "[BUNKER ERROR] unable to find project:%s", gstate.ProjectStarted); //jys
+                                else
+                                {
+                                        gstate.set_client_state_dirty("Project modified by user");
+                                        msg_printf(BunkeredProject, MSG_INFO, "work fetch suspended by user and signaled wait for empty");
+                                        BunkeredProject->dont_request_more_work = true;
+                                }
+                b1 = false;
+            }
+            return false;
+        }
+    }
+        // this code will never be reached when bunkering so effectively "networking" is suspended
+
 
     if (network_suspended) return false;
 
@@ -1372,4 +1555,39 @@ void CLIENT_STATE::request_work_fetch(const char* where) {
     }
     must_check_work_fetch = true;
 }
+
+// jys look up project name (not url eg: milkyway@home )
+// hmm case sensitive!!  needed to be Milkyway@Home
+PROJECT* CLIENT_STATE::FindProject(char *sname)
+{
+        int j = 0;
+        for (int i = 0; i < projects.size(); i++) {
+                PROJECT* p = projects[i];
+#ifdef WIN32
+                j = _stricmp(p->project_name, sname);
+#else
+                j = strcasecmp(p->project_name, sname);
+#endif
+#if 0
+                msg_printf(0, MSG_INFO, "Project Name:%s  incoming:%s  truth:%d",
+                        p->project_name, sname, j);
+#endif
+                if (j == 0)return p;
+        }
+        return NULL;
+}
+
+PROJECT* CLIENT_STATE::ListProjects()
+{
+        for (int i = 0; i < projects.size(); i++) {
+                PROJECT* p = projects[i];
+                msg_printf(0, MSG_INFO, "Project Name:%s",p->project_name);
+        }
+        return NULL;
+}
+/*
+Einstein@Home
+Milkyway@Home
+SETI@home
+*/
 

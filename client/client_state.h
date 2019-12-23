@@ -149,6 +149,20 @@ struct CLIENT_STATE {
         // venue from project or AMS that gave us general prefs
     char attach_project_url[256];
     char attach_project_auth[256];
+
+        char set_hostname[256];    // jys
+        char set_password[256];    // jys
+        char ProjectStarted[256];  // jys name of the project that requires special handleing
+        bool bSetPassword = false; // set to true if user did a --set_password "" so as to make it null
+        int SetBackoff = -1;       // jys set backoff to a value else use default
+        int BunkerThreshold = -1; // jys
+        int spoof_gpus = -1; //jys
+        bool enable_mw_delay = false; //jys
+        double BunkerTime = -1.0; //jys
+        int NumUnderCutoff = 0; //jys need to handle these properly and not just delete them
+        char bunker_time_string[256]; //jys
+        bool bUseCutoff = false; //jys  true if time is set and count is set
+
     bool exit_before_upload;
         // exit when about to upload a file
     bool run_test_app;
@@ -251,6 +265,9 @@ struct CLIENT_STATE {
 
 // --------------- client_state.cpp:
     CLIENT_STATE();
+        int count_results(); //jys
+        PROJECT* FindProject(char *sname); //jys
+        PROJECT* ListProjects(); //jys
     void show_host_info();
     bool is_new_client();
     int init();
@@ -592,8 +609,8 @@ extern THREAD throttle_thread;
 
 #define RESULT_REPORT_IF_AT_LEAST_N 64
     // If a project has at least this many ready-to-report tasks, report them.
-
-#define WF_MAX_RUNNABLE_JOBS    1000
+//jys change 1000 to 2000
+#define WF_MAX_RUNNABLE_JOBS    2000
     // don't fetch work from a project if it has this many runnable jobs.
     // This is a failsafe mechanism to prevent infinite fetching
 

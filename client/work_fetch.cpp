@@ -88,6 +88,12 @@ void RSC_PROJECT_WORK_FETCH::resource_backoff(PROJECT* p, const char* name) {
         backoff_interval = WF_MIN_BACKOFF_INTERVAL;
     }
     double x = (.5 + drand())*backoff_interval;
+
+    if (gstate.SetBackoff != -1)
+        {
+                x = gstate.SetBackoff; // jys
+        }
+
     backoff_time = gstate.now + x;
     if (log_flags.work_fetch_debug) {
         msg_printf(p, MSG_INFO,

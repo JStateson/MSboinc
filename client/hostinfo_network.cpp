@@ -56,6 +56,13 @@
 
 #include "hostinfo.h"
 
+
+void HOST_INFO::set_domainname(char* name) //jys
+{
+        safe_strcpy(new_hostname, name);
+}
+
+
 // get domain name and IP address of this host
 // Android: if domain_name is empty, set it to android_xxxxxxxx
 //
@@ -72,7 +79,7 @@ int HOST_INFO::get_local_network_info() {
 #endif
 
     struct sockaddr_storage s;
-    
+
     safe_strcpy(domain_name, "");
 
     // it seems like we should use getdomainname() instead of gethostname(),
@@ -82,6 +89,10 @@ int HOST_INFO::get_local_network_info() {
         return ERR_GETHOSTBYNAME;
     }
     int retval = resolve_hostname(domain_name, s);
+
+        if(strlen(new_hostname) > 0)
+                safe_strcpy(domain_name, new_hostname); //jys
+
     if (retval) return retval;
 #ifdef _WIN32
     sockaddr_in* sin = (sockaddr_in*)&s;
