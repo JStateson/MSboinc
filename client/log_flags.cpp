@@ -396,6 +396,8 @@ int CC_CONFIG::parse_options_client(XML_PARSER& xp) {
             downcase_string(force_auth);
             continue;
         }
+        if (xp.parse_string("set_gui_rpc_password",cc_gui_rpc_password)) continue; //jys
+
         if (xp.parse_bool("http_1_0", http_1_0)) continue;
         if (xp.parse_int("http_transfer_timeout", http_transfer_timeout)) continue;
         if (xp.parse_int("http_transfer_timeout_bps", http_transfer_timeout_bps)) continue;

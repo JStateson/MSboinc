@@ -125,7 +125,7 @@ int CLIENT_STATE::make_scheduler_request(PROJECT* p) {
                         mw_low = MW_LOW_WATER_pct / 100.0;
                         mw_high = MW_HIGH_WATER_pct / 100.0;
                         bInitRatio = false;
-                        msg_printf(p, MSG_INFO, "Using %d for low water and %d for high water pcts with delay(secs)%d",
+                        msg_printf(p, MSG_INFO, "MW_BUG_FIX ENABLED and Using %d for low water and %d for high water pcts with delay(secs)%d",
                                 MW_LOW_WATER_pct, MW_HIGH_WATER_pct, MW_wait_interval);
                 }
         }
