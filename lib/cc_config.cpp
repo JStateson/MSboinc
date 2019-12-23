@@ -231,6 +231,7 @@ void CC_CONFIG::defaults() {
     fetch_minimal_work = false;
     fetch_on_update = false;
     force_auth = "default";
+    cc_gui_rpc_password = "";
     http_1_0 = false;
     http_transfer_timeout = 300;
     http_transfer_timeout_bps = 10;
@@ -271,6 +272,7 @@ void CC_CONFIG::defaults() {
     use_certs = false;
     use_certs_only = false;
     vbox_window = false;
+    NumSpoofGPUs = -1; //jys
 }
 
 int EXCLUDE_GPU::parse(XML_PARSER& xp) {
@@ -380,6 +382,7 @@ int CC_CONFIG::parse_options(XML_PARSER& xp) {
             downcase_string(force_auth);
             continue;
         }
+        if (xp.parse_string("set_gui_rpc_password",cc_gui_rpc_password)) continue; //jys
         if (xp.parse_bool("http_1_0", http_1_0)) continue;
         if (xp.parse_int("http_transfer_timeout", http_transfer_timeout)) continue;
         if (xp.parse_int("http_transfer_timeout_bps", http_transfer_timeout_bps)) continue;
@@ -434,6 +437,9 @@ int CC_CONFIG::parse_options(XML_PARSER& xp) {
         if (xp.parse_bool("use_certs", use_certs)) continue;
         if (xp.parse_bool("use_certs_only", use_certs_only)) continue;
         if (xp.parse_bool("vbox_window", vbox_window)) continue;
+
+        if (xp.parse_int("spoof_gpus", NumSpoofGPUs)) continue; //jys
+
 
         // The following 3 tags have been moved to nvc_config and
         // NVC_CONFIG_FILE, but CC_CONFIG::write() in older clients 
@@ -587,6 +593,7 @@ int CC_CONFIG::write(MIOFILE& out, LOG_FLAGS& log_flags) {
         "        <fetch_minimal_work>%d</fetch_minimal_work>\n"
         "        <fetch_on_update>%d</fetch_on_update>\n"
         "        <force_auth>%s</force_auth>\n"
+        "        <set_gui_rpc_password>%s</set_gui_rpc_password>\n" // jys
         "        <http_1_0>%d</http_1_0>\n"
         "        <http_transfer_timeout>%d</http_transfer_timeout>\n"
         "        <http_transfer_timeout_bps>%d</http_transfer_timeout_bps>\n",
@@ -596,6 +603,7 @@ int CC_CONFIG::write(MIOFILE& out, LOG_FLAGS& log_flags) {
         fetch_minimal_work,
         fetch_on_update,
         force_auth.c_str(),
+        cc_gui_rpc_password.c_str(), // jys
         http_1_0,
         http_transfer_timeout,
         http_transfer_timeout_bps
@@ -672,6 +680,7 @@ int CC_CONFIG::write(MIOFILE& out, LOG_FLAGS& log_flags) {
         "        <use_certs>%d</use_certs>\n"
         "        <use_certs_only>%d</use_certs_only>\n"
         "        <vbox_window>%d</vbox_window>\n",
+        "        <spoof_gpus>%d</spoof_gpus>\n", //jys
         rec_half_life/86400,
         report_results_immediately,
         run_apps_manually,
@@ -685,7 +694,8 @@ int CC_CONFIG::write(MIOFILE& out, LOG_FLAGS& log_flags) {
         use_all_gpus,
         use_certs,
         use_certs_only,
-        vbox_window
+        vbox_window,
+        NumSpoofGPUs //jys
     );
 
     out.printf("    </options>\n</cc_config>\n");
