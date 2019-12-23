@@ -1,4 +1,3 @@
-
 WARNING - USE THIS PROGRAM AT YOUR OWN RISK. If you use the bunkering feature be aware that you must only crunch the project you want to bunker and no others. Questions to josephy@stateson.net.
 The sources here are based on 7.16.3 with changes to implement the following features
 Usage: boinc [options]
@@ -15,7 +14,8 @@ This project is named master - slave as the intent is to use the project informa
 
 The Milkyway bug fix is automatically enabled if the following debug flag is created
 <mw_debug>1<mw_debug>
-If the debug variable is set to 0 then you must use the startup parameter --mw_bug_fix to enable the feature.
+If the debug variable is set to 0 then you must use the startup parameter --mw_bug_fix to enable this feature.
+<spoof_gpus>16</spoof_gps> requests data from the project sufficient for 16 GPUs
 
 # License
 BOINC is free software; you can redistribute it and/or modify it
