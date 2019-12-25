@@ -1,7 +1,7 @@
 WARNING - USE THIS PROGRAM AT YOUR OWN RISK. If you use the bunkering feature be aware that you must only crunch the project you want to bunker and no others. Questions to josephy@stateson.net.
 The sources here are based on 7.16.3 with changes to implement the following features
-Usage: boinc [options]
 
+Usage: boinc [options]
 --set_hostname <name>          use this as hostname    
 --set_password <password>      rpc gui password    
 --set_backoff N                set backoff to this value    
