@@ -735,6 +735,32 @@ bool CLIENT_STATE::scheduler_rpc_poll() {
     return false;
 }
 
+// jys check message filters for content and usage
+// return index into exclusion list if filter fits
+int bIgnoreProjMsg(char *name, USER_MESSAGE &um){
+    int i = -1;
+    for (auto epm : cc_config.exclude_proj_msgs){
+        i++;
+        if (!strcmp(epm.name.c_str(), name)) {
+            if (epm.type != "") {
+                if(epm.type != um.priority) continue;
+                // filter class is same, check for content
+                if (epm.content == "")return i; // null matches all content
+                if (um.message.find(epm.content) != std::string::npos)return i;
+                continue; // content did not match but may be more than one filter, keep going
+            } else {
+                if (epm.content != ""){
+                    if (um.message.find(epm.content) != std::string::npos)return i; // found phrase
+                    continue;
+                } else return i; // if both empty then discard all project messages
+            }
+        }
+        else continue;
+    }
+    return -1;
+}
+
+
 // Handle the reply from a scheduler
 //
 int CLIENT_STATE::handle_scheduler_reply(
@@ -830,12 +856,26 @@ int CLIENT_STATE::handle_scheduler_reply(
     // show messages from server
     //
     bool got_notice = false;
+    int j = -1;
     for (i=0; i<sr.messages.size(); i++) {
         USER_MESSAGE& um = sr.messages[i];
         int prio = MSG_INFO;
+        j = -1;
         if (!strcmp(um.priority.c_str(), "notice")) {
             prio = MSG_SCHEDULER_ALERT;
             got_notice = true;
+        }
+        else j=bIgnoreProjMsg(project->project_name, um);
+        if (j != -1)
+        {
+            if(cc_config.exclude_proj_msgs[j].cnt == 0)
+            {
+                if(log_flags.debug_proj_msg)
+                    msg_printf(0,MSG_INFO,"For project %s,  excluded this message: \"%s\" of priority \"%s\"",
+                                 project->project_name,um.message, um.priority);
+            }
+            cc_config.exclude_proj_msgs[j].cnt++;
+            continue; //jys
         }
         msg_printf(project, prio, "%s", um.message.c_str());
     }

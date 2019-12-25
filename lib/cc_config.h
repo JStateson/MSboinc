@@ -122,12 +122,23 @@ struct LOG_FLAGS {
         // work fetch policy
 
     bool mw_debug; //jys
+    bool debug_proj_msg; //jys
 
     LOG_FLAGS(){}
     void init();
     int parse(XML_PARSER&);
     void show();
     int write(MIOFILE& out);
+};
+
+
+struct EXCLUDE_PROJ_MSG { //jys
+    std::string name;    // project name
+    std::string type;    // low or notice or empty for all 
+    std::string content; // phrase has this content it is excluded
+    int parse(XML_PARSER&);
+    int cnt;    // number of similar messages
+    void write(MIOFILE&);
 };
 
 struct EXCLUDE_GPU {
@@ -158,6 +169,7 @@ struct CC_CONFIG {
     bool dont_use_vbox;
     bool dont_use_wsl;
     std::vector<EXCLUDE_GPU> exclude_gpus;
+    std::vector<EXCLUDE_PROJ_MSG> exclude_proj_msgs; //jys
     std::vector<std::string> exclusive_apps;
     std::vector<std::string> exclusive_gpu_apps;
     bool exit_after_finish;

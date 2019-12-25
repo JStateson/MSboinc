@@ -102,7 +102,8 @@ int LOG_FLAGS::parse(XML_PARSER& xp) {
         if (xp.parse_bool("trickle_debug", trickle_debug)) continue;
         if (xp.parse_bool("unparsed_xml", unparsed_xml)) continue;
         if (xp.parse_bool("work_fetch_debug", work_fetch_debug)) continue;
-        if (xp.parse_bool("mw_debug", mw_debug))continue;
+        if (xp.parse_bool("mw_debug", mw_debug))continue; //jys
+        if (xp.parse_bool("debug_proj_msg",debug_proj_msg))continue; //jys
         xp.skip_unexpected(true, "LOG_FLAGS::parse");
     }
     return ERR_XML_PARSE;
@@ -154,6 +155,7 @@ int LOG_FLAGS::write(MIOFILE& out) {
         "        <unparsed_xml>%d</unparsed_xml>\n"
         "        <work_fetch_debug>%d</work_fetch_debug>\n"
         "        <mw_debug>%d</mw_debug>\n" //jys
+        "        <debug_proj_msg>%d</debug_proj_msg>\n" //jys
         "    </log_flags>\n",
         file_xfer ? 1 : 0,
         sched_ops ? 1 : 0,
@@ -197,7 +199,8 @@ int LOG_FLAGS::write(MIOFILE& out) {
         trickle_debug ? 1 : 0,
         unparsed_xml ? 1 : 0,
         work_fetch_debug ? 1 : 0,
-        mw_debug ? 1 : 0
+        mw_debug ? 1 : 0, //jys
+        debug_proj_msg ? 1 : 0 //jys
     );
     return 0;
 }
@@ -272,6 +275,29 @@ void CC_CONFIG::defaults() {
     use_certs_only = false;
     vbox_window = false;
     NumSpoofGPUs = -1; //jys
+}
+
+
+int EXCLUDE_PROJ_MSG::parse(XML_PARSER& xp) { //jys
+    bool found_name = false;
+    type = "";
+    name = "";
+    content = "";
+    cnt = 0;
+    while (!xp.get_tag()) {
+        if (!xp.is_tag) continue;
+        if (xp.match_tag("/exclude_proj_msg")) {
+            if (!found_name) return ERR_XML_PARSE;
+                return 0;
+        }
+        if (xp.parse_string("proj_name", name)) {
+            found_name = true;
+            continue;
+        }
+        if (xp.parse_string("msg_type", type)) continue;
+        if (xp.parse_string("msg_content", content)) continue;
+    }
+    return ERR_XML_PARSE;
 }
 
 int EXCLUDE_GPU::parse(XML_PARSER& xp) {
@@ -471,6 +497,30 @@ int CC_CONFIG::parse(XML_PARSER& xp, LOG_FLAGS& log_flags) {
         if (xp.match_tag("log_flags/")) continue;
     }
     return ERR_XML_PARSE;
+}
+
+
+void EXCLUDE_PROJ_MSG::write(MIOFILE& out) { //jys
+    out.printf(
+        "    <exclude_proj_msg>\n"
+        "        <proj_name>%s<proj_name>\n",
+        name.c_str()
+        );
+    if (type.length()) {
+        out.printf(
+        "        <msg_type>%s</msg_type>\n",
+        type.c_str()
+        );
+    }
+    if (content.length()) {
+        out.printf(
+        "        <msg_content>%s</msg_content>\n",
+        content.c_str()
+        );
+    }
+    out.printf(
+    "    </exclude_gpu>\n"
+    );
 }
 
 void EXCLUDE_GPU::write(MIOFILE& out) {

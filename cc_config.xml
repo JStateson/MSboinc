@@ -1,0 +1,22 @@
+!<--   Sample config to show features not in the 7.16.3 release ->?
+
+<cc_config>
+  <log_flags>
+    <mw_debug>1</mw_debug>
+    <debug_proj_msg>1</debug_proj_msg>
+  </log_flags>
+  <options>
+    <spoof_gpus>16</spoof_gpus>
+    <exclude_proj_msg>
+      <proj_name>Einstein@Home</proj_name>
+      <msg_type></msg_type>
+      <msg_content>no longer needed</msg_content>
+    </exclude_proj_msg>
+    <exclude_proj_msg>
+      <proj_name>GPUGRID</proj_name>
+      <msg_type></msg_type>
+      <msg_content>No tasks </msg_content>
+    </exclude_proj_msg>
+  </optoins>
+</cc_config>
+

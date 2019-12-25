@@ -97,7 +97,8 @@ void LOG_FLAGS::show() {
     show_flag(buf, sizeof(buf), proxy_debug, "proxy_debug");
     show_flag(buf, sizeof(buf), rr_simulation, "rr_simulation");
     show_flag(buf, sizeof(buf), sched_op_debug, "sched_op_debug");
-    show_flag(buf, sizeof(buf), mw_debug, "mw_debug");
+    show_flag(buf, sizeof(buf), mw_debug, "mw_debug"); //jys
+    show_flag(buf, sizeof(buf), debug_proj_msg, "debug_proj_msg"); //jys
     show_flag(buf, sizeof(buf), scrsave_debug, "scrsave_debug");
     show_flag(buf, sizeof(buf), slot_debug, "slot_debug");
     show_flag(buf, sizeof(buf), state_debug, "state_debug");
@@ -119,6 +120,16 @@ static void show_gpu_ignore(vector<int>& devs, int rt) {
         );
     }
 }
+
+// jys show what messages are excluded, if any
+static void show_exclude_msgs(EXCLUDE_PROJ_MSG& e) {
+    char t[256], c[256];
+    safe_strcpy(t, (e.type.length() == 0) ? "ALL" : e.type.c_str());
+    safe_strcpy(c, (e.content.length() == 0) ? "ALL" : e.content.c_str());
+    msg_printf(0, MSG_INFO, "Not showing project messsage from %s of type \"%s\" with content \"%s\"",
+         e.name.c_str(), t, c);
+}
+
 
 // Show GPU exclusions in event log.
 // Don't show errors - they were already shown when we parsed the config file
@@ -208,6 +219,9 @@ void CC_CONFIG::show() {
     }
     for (i=0; i<exclude_gpus.size(); i++) {
         show_exclude_gpu(exclude_gpus[i]);
+    }
+    for (i=0; i<exclude_proj_msgs.size(); i++) {
+        show_exclude_msgs(exclude_proj_msgs[i]);
     }
     for (i=0; i<exclusive_apps.size(); i++) {
         msg_printf(NULL, MSG_INFO,
@@ -358,6 +372,19 @@ int CC_CONFIG::parse_options_client(XML_PARSER& xp) {
         if (xp.parse_bool("dont_suspend_nci", dont_suspend_nci)) continue;
         if (xp.parse_bool("dont_use_vbox", dont_use_vbox)) continue;
         if (xp.parse_bool("dont_use_wsl", dont_use_wsl)) continue;
+
+if (xp.match_tag("exclude_proj_msg")) { //jys
+    EXCLUDE_PROJ_MSG emsg;
+    retval = emsg.parse(xp);
+    if (retval) {
+        msg_printf_notice(NULL, false, NULL,
+            "Can't parse <exclude_proj_msg> element in cc_config.xml");
+    } else {
+    exclude_proj_msgs.push_back(emsg);
+    }
+    continue;
+}
+
         if (xp.match_tag("exclude_gpu")) {
             EXCLUDE_GPU eg;
             retval = eg.parse(xp);
