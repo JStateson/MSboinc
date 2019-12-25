@@ -15,7 +15,12 @@
     <exclude_proj_msg>
       <proj_name>GPUGRID</proj_name>
       <msg_type></msg_type>
-      <msg_content>No tasks </msg_content>
+      <msg_content>No tasks</msg_content>
+    </exclude_proj_msg>
+    <exclude_proj_msg>
+      <proj_name>GPUGRID</proj_name>
+      <msg_type></msg_type>
+      <msg_content>no tasks available</msg_content>
     </exclude_proj_msg>
   </optoins>
 </cc_config>
