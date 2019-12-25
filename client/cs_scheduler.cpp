@@ -856,25 +856,25 @@ int CLIENT_STATE::handle_scheduler_reply(
     // show messages from server
     //
     bool got_notice = false;
-    int j = -1;
+    int jnx = -1;
     for (i=0; i<sr.messages.size(); i++) {
         USER_MESSAGE& um = sr.messages[i];
         int prio = MSG_INFO;
-        j = -1;
+        jnx = -1;
         if (!strcmp(um.priority.c_str(), "notice")) {
             prio = MSG_SCHEDULER_ALERT;
             got_notice = true;
         }
-        else j=bIgnoreProjMsg(project->project_name, um);
-        if (j != -1)
+        else jnx=bIgnoreProjMsg(project->project_name, um);
+        if (jnx != -1)
         {
-            if(cc_config.exclude_proj_msgs[j].cnt == 0)
+            if(cc_config.exclude_proj_msgs[jnx].cnt == 0)
             {
                 if(log_flags.debug_proj_msg)
                     msg_printf(0,MSG_INFO,"For project %s,  excluded this message: \"%s\" of priority \"%s\"",
-                                 project->project_name,um.message, um.priority);
+                                 project->project_name,um.message.c_str(), um.priority.c_str());
             }
-            cc_config.exclude_proj_msgs[j].cnt++;
+            cc_config.exclude_proj_msgs[jnx].cnt++;
             continue; //jys
         }
         msg_printf(project, prio, "%s", um.message.c_str());
