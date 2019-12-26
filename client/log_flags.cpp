@@ -123,11 +123,12 @@ static void show_gpu_ignore(vector<int>& devs, int rt) {
 
 // jys show what messages are excluded, if any
 static void show_exclude_msgs(EXCLUDE_PROJ_MSG& e) {
-    char t[256], c[256];
+    char t[256], c[256], m[256];
     safe_strcpy(t, (e.type.length() == 0) ? "ALL" : e.type.c_str());
     safe_strcpy(c, (e.content.length() == 0) ? "ALL" : e.content.c_str());
-    msg_printf(0, MSG_INFO, "Not showing project messsage from %s of type \"%s\" with content \"%s\"",
-         e.name.c_str(), t, c);
+    safe_strcpy(m, (e.name.length() == 0) ? "ALL" : e.name.c_str());
+    msg_printf(0, MSG_INFO, "Not showing project messages from %s of type \"%s\" with content \"%s\"",
+         m, t, c);
 }
 
 

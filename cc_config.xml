@@ -6,22 +6,42 @@
     <debug_proj_msg>1</debug_proj_msg>
   </log_flags>
   <options>
-    <spoof_gpus>16</spoof_gpus>
-    <exclude_proj_msg>
-      <proj_name>Einstein@Home</proj_name>
-      <msg_type></msg_type>
-      <msg_content>no longer needed</msg_content>
-    </exclude_proj_msg>
-    <exclude_proj_msg>
-      <proj_name>GPUGRID</proj_name>
-      <msg_type></msg_type>
-      <msg_content>No tasks</msg_content>
-    </exclude_proj_msg>
-    <exclude_proj_msg>
-      <proj_name>GPUGRID</proj_name>
-      <msg_type></msg_type>
-      <msg_content>no tasks available</msg_content>
-    </exclude_proj_msg>
+<exclude_proj_msg>
+<proj_name>Einstein@Home</proj_name>
+<msg_type></msg_type>
+<msg_content>no longer needed</msg_content>
+</exclude_proj_msg>
+
+<exclude_proj_msg>
+<proj_name>Einstein@Home</proj_name>
+<msg_type></msg_type>
+<msg_content>No work sent</msg_content>
+</exclude_proj_msg>
+
+
+<exclude_proj_msg>
+<proj_name>Einstein@Home</proj_name>
+<msg_type></msg_type>
+<msg_content>no work available</msg_content>
+</exclude_proj_msg>
+
+<exclude_proj_msg>
+<proj_name>Einstein@Home</proj_name>
+<msg_type></msg_type>
+<msg_content>No work is available</msg_content>
+</exclude_proj_msg>
+
+<exclude_proj_msg>
+<proj_name>GPUGRID</proj_name>
+<msg_type></msg_type>
+<msg_content>No tasks</msg_content>
+</exclude_proj_msg>
+
+<exclude_proj_msg>
+<proj_name>GPUGRID</proj_name>
+<msg_type></msg_type>
+<msg_content>no tasks available</msg_content>
+</exclude_proj_msg>
   </optoins>
 </cc_config>
 

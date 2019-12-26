@@ -741,7 +741,7 @@ int bIgnoreProjMsg(char *name, USER_MESSAGE &um){
     int i = -1;
     for (auto epm : cc_config.exclude_proj_msgs){
         i++;
-        if (!strcmp(epm.name.c_str(), name)) {
+        if (!strcmp(epm.name.c_str(), name) || epm.name=="") { // jys if name empty than apply to all projects
             if (epm.type != "") {
                 if(epm.type != um.priority) continue;
                 // filter class is same, check for content
