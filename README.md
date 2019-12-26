@@ -18,7 +18,7 @@ Usage: boinc [options]
 
 --bunker_time_string <text>    unix time cutoff for reporting in this format exactly:  "11/24/2019T10:41:29"
                                
-Filtering of project messages uses new features cc_config.xml and allows for hiding messages that obscure the
+Filtering of project messages uses new features in cc_config.xml and allows for hiding messages that obscure the
 limited amount of space visible in the event log.  See cc_config.xml for a sample filter that eliminates most
 of the ignoreable message like "no work available for xxx" or "boinc deleted yyy"
                                
@@ -32,7 +32,8 @@ the outage. The scripts, bash and cmd, to perform this function are under constr
 The Milkyway bug fix is automatically enabled if the following debug flag is created
 <mw_debug>1<mw_debug>
 If the debug variable is set to 0 then you must use the startup parameter --mw_bug_fix to enable this feature.
-<spoof_gpus>16</spoof_gps> requests data from the project sufficient for 16 GPUs
+<spoof_gpus>16</spoof_gps> requests data from the project sufficient for 16 GPUs.  Arguments passed in as a switch
+in the command line override corresponding cc_config settings.
 
 # License
 BOINC is free software; you can redistribute it and/or modify it
