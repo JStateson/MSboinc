@@ -768,7 +768,9 @@ int CLIENT_STATE::init() {
     acct_mgr_info.init();
     project_init.init();
 
-    log_show_projects();    // this must follow acct_mgr_info.init()
+
+    // this must follow acct_mgr_info.init()
+    if (log_flags.debug_proj_msg)  log_show_projects();    // jys do not show this log info by default, only if debug is enabled
 
     // set up for handling GUI RPCs
     //
