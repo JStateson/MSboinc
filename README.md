@@ -5,16 +5,22 @@ The sources here are based on 7.16.3 with changes to implement the following fea
 Usage: boinc [options]
 
 --set_hostname <name>          use this as hostname
+  
 --set_password <password>      rpc gui password
+  
 --set_backoff N                set backoff to this value
+
 --spoof_gpus N                 fake number of gpus
+
 --set_bunker_cnt <project> N   bunker this many workunits for given project then quit
+  
 --mw_bug_fix                   delay attaching output to allow new work to download (Milkyway only)
+
 --bunker_time_string <text>    unix time cutoff for reporting in this format exactly:  "11/24/2019T10:41:29"
                                
-Filtering of messages is recognized in cc_config.xml and allows for hiding messages that obscure the limited
-amount of space visible in the event log.  See cc_config.xml for a sample filter that eliminates most of
-the ignoreable message like "no work avaialble for xxx" or "boinc deleted yyy"
+Filtering of project messages uses new features cc_config.xml and allows for hiding messages that obscure the
+limited amount of space visible in the event log.  See cc_config.xml for a sample filter that eliminates most
+of the ignoreable message like "no work available for xxx" or "boinc deleted yyy"
                                
 This project is named master - slave as the intent is to use the project information at \ProjectData\Boinc
 (or /var/lib/boinc) as a master and make copies of it using an incrementing hostname, same password, and
