@@ -1,4 +1,4 @@
-// This file is part of BOINC.
+ // This file is part of BOINC.
 // http://boinc.berkeley.edu
 // Copyright (C) 2008 University of California
 //
@@ -741,14 +741,19 @@ int bIgnoreProjMsg(char *name, USER_MESSAGE &um){
     int i = -1;
     for (auto epm : cc_config.exclude_proj_msgs){
         i++;
-        if (!strcmp(epm.name.c_str(), name) || epm.name=="") { // jys if name empty than apply to all projects
-            if (epm.type != "") {
+        if (log_flags.debug_proj_msg) {
+          msg_printf(0,MSG_INFO,"Looking for %s and %s and %s in config having %s and %s and %s",name,um.priority.c_str(), um.message.c_str(),
+         (epm.name.length()==0) ? "ALL"  : epm.name.c_str(), (epm.type.length()==0) ? "ALL" : epm.type.c_str(),
+         (epm.content.length()==0) ? "ALL" : epm.content.c_str());
+        }
+        if (!strcmp(epm.name.c_str(), name) || epm.name.length() == 0) { // jys if name empty than apply to all projects
+            if (epm.type.length() > 0) {
                 if(epm.type != um.priority) continue;
                 // filter class is same, check for content
                 if (epm.content == "")return i; // null matches all content
                 if (um.message.find(epm.content) != std::string::npos)return i;
                 continue; // content did not match but may be more than one filter, keep going
-            } else {
+            } else { // type is empty so all types fit the filter
                 if (epm.content != ""){
                     if (um.message.find(epm.content) != std::string::npos)return i; // found phrase
                     continue;
@@ -857,6 +862,7 @@ int CLIENT_STATE::handle_scheduler_reply(
     //
     bool got_notice = false;
     int jnx = -1;
+    static char *AllOthers = " and all other projects";
     for (i=0; i<sr.messages.size(); i++) {
         USER_MESSAGE& um = sr.messages[i];
         int prio = MSG_INFO;
@@ -870,9 +876,11 @@ int CLIENT_STATE::handle_scheduler_reply(
         {
             if(cc_config.exclude_proj_msgs[jnx].cnt == 0)
             {
-                if(log_flags.debug_proj_msg)
+                if(log_flags.debug_proj_msg) {
                     msg_printf(0,MSG_INFO,"For project %s,  excluded this message: \"%s\" of priority \"%s\"",
-                                 project->project_name,um.message.c_str(), um.priority.c_str());
+                                 (cc_config.exclude_proj_msgs[jnx].name.length()==0) ? "ALL" : project->project_name,
+                                  um.message.c_str(), um.priority.c_str());
+               }
             }
             cc_config.exclude_proj_msgs[jnx].cnt++;
             continue; //jys

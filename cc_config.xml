@@ -6,42 +6,43 @@
     <debug_proj_msg>1</debug_proj_msg>
   </log_flags>
   <options>
-<exclude_proj_msg>
-<proj_name>Einstein@Home</proj_name>
-<msg_type></msg_type>
-<msg_content>no longer needed</msg_content>
-</exclude_proj_msg>
+
 
 <exclude_proj_msg>
-<proj_name>Einstein@Home</proj_name>
+<proj_name></proj_name>
+<msg_type>low</msg_type>
+<msg_content></msg_content>
+</exclude_proj_msg>
+
+
+<exclude_proj_msg>
+<proj_name></proj_name>
+<msg_type></msg_type>
+<msg_content>settings do not allow fetching tasks</msg_content>
+</exclude_proj_msg>
+
+
+<exclude_proj_msg>
+<proj_name></proj_name>
+<msg_type></msg_type>
+<msg_content>No work available</msg_content>
+</exclude_proj_msg>
+
+
+<exclude_proj_msg>
+<proj_name></proj_name>
 <msg_type></msg_type>
 <msg_content>No work sent</msg_content>
 </exclude_proj_msg>
 
 
 <exclude_proj_msg>
-<proj_name>Einstein@Home</proj_name>
-<msg_type></msg_type>
-<msg_content>no work available</msg_content>
-</exclude_proj_msg>
-
-<exclude_proj_msg>
-<proj_name>Einstein@Home</proj_name>
+<proj_name></proj_name>
 <msg_type></msg_type>
 <msg_content>No work is available</msg_content>
 </exclude_proj_msg>
 
-<exclude_proj_msg>
-<proj_name>GPUGRID</proj_name>
-<msg_type></msg_type>
-<msg_content>No tasks</msg_content>
-</exclude_proj_msg>
 
-<exclude_proj_msg>
-<proj_name>GPUGRID</proj_name>
-<msg_type></msg_type>
-<msg_content>no tasks available</msg_content>
-</exclude_proj_msg>
-  </optoins>
+  </options>
 </cc_config>
 
