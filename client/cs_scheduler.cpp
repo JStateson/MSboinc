@@ -1629,10 +1629,14 @@ PROJECT* CLIENT_STATE::FindProject(char *sname)
 
 PROJECT* CLIENT_STATE::ListProjects()
 {
+        char outbuf[1024];
         for (int i = 0; i < projects.size(); i++) {
                 PROJECT* p = projects[i];
-                msg_printf(0, MSG_INFO, "Project Name:%s",p->project_name);
+                safe_strcat(outbuf,p->project_name);
+                if(i < projects.size()-1)
+                    strcat(outbuf,",");
         }
+        msg_printf(0, MSG_INFO, "Project Name:%s",outbuf);
         return NULL;
 }
 /*
