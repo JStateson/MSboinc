@@ -483,6 +483,7 @@ if (xp.match_tag("exclude_proj_msg")) { //jys
         if (xp.parse_bool("use_certs_only", use_certs_only)) continue;
         if (xp.parse_bool("vbox_window", vbox_window)) continue;
         if (xp.parse_int("spoof_gpus", NumSpoofGPUs)) continue; //jys
+        if (xp.parse_bool("mw_bug_fix", mw_bug_fix)) continue; //jys
 
 
         // The following 3 tags have been moved to nvc_config and
