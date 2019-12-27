@@ -601,6 +601,7 @@ int read_config_file(bool init, const char* fname) {
     } else {
         select_proxy_info();        // in case added or removed proxy info
     }
+    if(cc_config.mw_bug_fix) gstate.enable_mw_delay = true;
     return 0;
 }
 

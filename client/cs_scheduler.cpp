@@ -1,4 +1,4 @@
- // This file is part of BOINC.
+/// This file is part of BOINC.
 // http://boinc.berkeley.edu
 // Copyright (C) 2008 University of California
 //
@@ -108,7 +108,7 @@ int CLIENT_STATE::make_scheduler_request(PROJECT* p) {
         static bool bEmptyWater = false;
         int jPN, iGPU;
 
-        gstate.enable_mw_delay |= mw_log;
+//        gstate.enable_mw_delay |= cc_config.mw_bug_fix; //  can be set in cc_config or via commmand arg
 
         if (gstate.enable_mw_delay)
         {

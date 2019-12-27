@@ -275,6 +275,7 @@ void CC_CONFIG::defaults() {
     use_certs_only = false;
     vbox_window = false;
     NumSpoofGPUs = -1; //jys
+    mw_bug_fix = 0; //jys
 }
 
 
@@ -463,7 +464,7 @@ int CC_CONFIG::parse_options(XML_PARSER& xp) {
         if (xp.parse_bool("vbox_window", vbox_window)) continue;
 
         if (xp.parse_int("spoof_gpus", NumSpoofGPUs)) continue; //jys
-
+        if (xp.parse_bool("mw_bug_fix", mw_bug_fix)) continue; //jys
 
         // The following 3 tags have been moved to nvc_config and
         // NVC_CONFIG_FILE, but CC_CONFIG::write() in older clients 
@@ -725,8 +726,9 @@ int CC_CONFIG::write(MIOFILE& out, LOG_FLAGS& log_flags) {
         "        <use_all_gpus>%d</use_all_gpus>\n"
         "        <use_certs>%d</use_certs>\n"
         "        <use_certs_only>%d</use_certs_only>\n"
-        "        <vbox_window>%d</vbox_window>\n",
-        "        <spoof_gpus>%d</spoof_gpus>\n", //jys
+        "        <vbox_window>%d</vbox_window>\n"
+        "        <spoof_gpus>%d</spoof_gpus>\n" //jys
+        "        <mw_bug_fix>%d</mw_bug_fix>\n", //jys
         rec_half_life/86400,
         report_results_immediately,
         run_apps_manually,
@@ -741,7 +743,8 @@ int CC_CONFIG::write(MIOFILE& out, LOG_FLAGS& log_flags) {
         use_certs,
         use_certs_only,
         vbox_window,
-        NumSpoofGPUs //jys
+        NumSpoofGPUs, //jys
+        mw_bug_fix //jys
     );
 
     out.printf("    </options>\n</cc_config>\n");

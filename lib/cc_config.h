@@ -122,6 +122,7 @@ struct LOG_FLAGS {
         // work fetch policy
 
     bool mw_debug; //jys
+    bool mw_bug_fix; //jys
     bool debug_proj_msg; //jys
 
     LOG_FLAGS(){}
@@ -215,7 +216,7 @@ struct CC_CONFIG {
         // overrides use_certs
     bool vbox_window;
     int NumSpoofGPUs; //jys
-
+    bool mw_bug_fix;
 
     CC_CONFIG();
     void defaults();
