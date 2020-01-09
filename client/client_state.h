@@ -609,8 +609,8 @@ extern THREAD throttle_thread;
 
 #define RESULT_REPORT_IF_AT_LEAST_N 64
     // If a project has at least this many ready-to-report tasks, report them.
-//jys change 1000 to 2000
-#define WF_MAX_RUNNABLE_JOBS    2000
+//jys change 1000 to 4000
+#define WF_MAX_RUNNABLE_JOBS    4000
     // don't fetch work from a project if it has this many runnable jobs.
     // This is a failsafe mechanism to prevent infinite fetching
 

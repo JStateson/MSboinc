@@ -73,6 +73,8 @@
 
 #include "client_state.h"
 
+#include "build_defs.h" //jys
+
 using std::max;
 
 CLIENT_STATE gstate;
@@ -84,6 +86,24 @@ THREAD_LOCK client_mutex;
 THREAD throttle_thread;
 #endif
 #endif
+
+
+const unsigned char completeVersion[] =
+{
+    BUILD_YEAR_CH0, BUILD_YEAR_CH1, BUILD_YEAR_CH2, BUILD_YEAR_CH3,
+    '-',
+    BUILD_MONTH_CH0, BUILD_MONTH_CH1,
+    '-',
+    BUILD_DAY_CH0, BUILD_DAY_CH1,
+    'T',
+    BUILD_HOUR_CH0, BUILD_HOUR_CH1,
+    ':',
+    BUILD_MIN_CH0, BUILD_MIN_CH1,
+    ':',
+    BUILD_SEC_CH0, BUILD_SEC_CH1,
+    '\0'
+};
+
 
 CLIENT_STATE::CLIENT_STATE()
     : lookup_website_op(&gui_http),
@@ -197,6 +217,7 @@ CLIENT_STATE::CLIENT_STATE()
 #ifdef _WIN32
     have_sysmon_msg = false;
 #endif
+
 }
 
 void CLIENT_STATE::show_host_info() {
@@ -458,10 +479,11 @@ int CLIENT_STATE::init() {
     time_stats.start();
 
     msg_printf(
-        NULL, MSG_INFO, "Starting BOINC client version %d.%d.%d for %s%s",
+        NULL, MSG_INFO, "Starting BOINC client version %d.%d.%d build:%s for %s%s",
         core_client_version.major,
         core_client_version.minor,
         core_client_version.release,
+        completeVersion,
         HOSTTYPE,
 #ifdef _DEBUG
         " (DEBUG)"

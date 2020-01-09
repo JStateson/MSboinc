@@ -42,6 +42,24 @@
 #include "project.h"
 #include "sandbox.h"
 
+#include "build_defs.h" //jys
+
+const unsigned char completeVersion[] =
+{
+    BUILD_YEAR_CH0, BUILD_YEAR_CH1, BUILD_YEAR_CH2, BUILD_YEAR_CH3,
+    '-',
+    BUILD_MONTH_CH0, BUILD_MONTH_CH1,
+    '-',
+    BUILD_DAY_CH0, BUILD_DAY_CH1,
+    'T',
+    BUILD_HOUR_CH0, BUILD_HOUR_CH1,
+    ':',
+    BUILD_MIN_CH0, BUILD_MIN_CH1,
+    ':',
+    BUILD_SEC_CH0, BUILD_SEC_CH1,
+    '\0'
+};
+
 static void print_options(char* prog) {
     printf(
         "The command-line options for %s are intended for debugging.\n"
@@ -324,7 +342,7 @@ else if (ARG(set_bunker_cnt)) { //jys
             if (i == argc-1) show_options = true;
             else safe_strcpy(update_prefs_url, argv[++i]);
         } else if (ARG(version)) {
-            printf(BOINC_VERSION_STRING " " HOSTTYPE "\n");
+            printf(BOINC_VERSION_STRING " " HOSTTYPE " Build:%s\n",completeVersion);
             exit(0);
 #ifdef __APPLE__
         // workaround for bug in XCode 4.2: accept but ignore 
