@@ -20,7 +20,8 @@ Usage: boinc [options]
                                
 Filtering of project messages uses new features in cc_config.xml and allows for hiding messages that obscure the
 limited amount of space visible in the event log.  See cc_config.xml for a sample filter that eliminates most
-of the ignoreable message like "no work available for xxx" or "boinc deleted yyy"
+of the ignoreable message like "no work available for xxx" or "boinc deleted yyy".  In addtion, some non-project
+messages such as "Backing off" are displayed only when the projet name changes.
                                
 This project is named master - slave as the intent is to use the project information at \ProjectData\Boinc
 (or /var/lib/boinc) as a master and make copies of it using an incrementing hostname, same password, and
@@ -33,18 +34,5 @@ The Milkyway bug fix is automatically enabled if the following debug flag is cre
 <mw_debug>1<mw_debug>
 If the debug variable is set to 0 then you must use the startup parameter --mw_bug_fix to enable this feature.
 <spoof_gpus>16</spoof_gps> requests data from the project sufficient for 16 GPUs.  Arguments passed in as a switch
-in the command line override corresponding cc_config settings.
+in the command line override corresponding cc_config settings.  Version now gives the build date and time.
 
-# License
-BOINC is free software; you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation,
-either version 3 of the License, or (at your option) any later version.
-
-BOINC is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with BOINC.  If not, see <https://www.gnu.org/licenses/>.
