@@ -355,6 +355,7 @@ void PERS_FILE_XFER::transient_failure(int retval) {
 //
 void PERS_FILE_XFER::do_backoff() {
     double backoff = 0;
+    static char lastProjName[256] = ""; //jys
 
     // don't count it as a server failure if network is down
     //
@@ -375,6 +376,8 @@ void PERS_FILE_XFER::do_backoff() {
         nretry, gstate.pers_retry_delay_min, gstate.pers_retry_delay_max
     );
     next_request_time = gstate.now + backoff;
+    if(0 == strcmp(p->project_name,lastProjName))return; //jys
+    strcpy(lastProjName,p->project_name);  //jys
     msg_printf(fip->project, MSG_INFO,
         "Backing off %s on %s of %s",
         timediff_format(backoff).c_str(),
