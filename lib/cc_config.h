@@ -252,6 +252,7 @@ struct APP_VERSION_CONFIG {
     char cmdline[256];
     double avg_ncpus;
     double ngpus;
+    int spoofedgpus;
 
     APP_VERSION_CONFIG(){}
     int parse(XML_PARSER&, MSG_VEC&, LOG_FLAGS&);

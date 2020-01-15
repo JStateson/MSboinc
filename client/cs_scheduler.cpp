@@ -262,6 +262,7 @@ int CLIENT_STATE::make_scheduler_request(PROJECT* p) {
     host_info.get_host_info(false);
     set_ncpus();
     iGPU = (gstate.spoof_gpus == -1) ? 0 : gstate.spoof_gpus;
+    if(iGPU == 0) iGPU = p->spoofedgpus; // jys
     host_info.write(mf, !cc_config.suppress_net_info, false, iGPU);
 
     // get and write disk usage

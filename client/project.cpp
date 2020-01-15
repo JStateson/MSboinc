@@ -131,6 +131,7 @@ void PROJECT::init() {
     cpu_time = 0;
     gpu_ec = 0;
     gpu_time = 0;
+    spoofedgpus = 0; // jys
     app_configs.clear();
 
 #ifdef SIM

@@ -38,6 +38,7 @@ static void show_warning(PROJECT* p, char* name) {
 int APP_CONFIGS::config_app_versions(PROJECT* p, bool show_warnings) {
     unsigned int i;
     bool showed_notice = false;
+    p->spoofedgpus = 0; // jys  use only the highest count, if any
     for (i=0; i<app_configs.size(); i++) {
         APP_CONFIG& ac = app_configs[i];
         APP* app = gstate.lookup_app(p, ac.name);
@@ -86,6 +87,9 @@ int APP_CONFIGS::config_app_versions(PROJECT* p, bool show_warnings) {
             }
             if (avc.ngpus) {
                 avp->gpu_usage.usage = avc.ngpus;
+            }
+            if(avc.spoofedgpus > p->spoofedgpus) {
+                p->spoofedgpus = avc.spoofedgpus;
             }
         }
         if (!found) {

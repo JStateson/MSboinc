@@ -845,6 +845,7 @@ int APP_VERSION_CONFIG::parse(
         if (xp.parse_str("cmdline", cmdline, 256)) continue;
         if (xp.parse_double("avg_ncpus", avg_ncpus)) continue;
         if (xp.parse_double("ngpus", ngpus)) continue;
+        if (xp.parse_int("spoofedgpus",spoofedgpus)) continue;
         if (log_flags.unparsed_xml) {
             snprintf(buf, sizeof(buf), "Unparsed line in app_config.xml: %.128s", xp.parsed_tag);
             mv.push_back(string(buf));
@@ -948,12 +949,14 @@ void APP_CONFIGS::write(MIOFILE& out) {
             "           <cmdline>%s</cmdline>\n"
             "           <avg_ncpus>%f</avg_ncpus>\n"
             "           <ngpus>%f</ngpus>\n"
+            "           <spoofedgpus>%d</spoofedgpus>\n"
             "       </app_version>\n",
             avc.app_name,
             avc.plan_class,
             avc.cmdline,
             avc.avg_ncpus,
-            avc.ngpus
+            avc.ngpus,
+            avc.spoofedgpus
         );
     }
     out.printf(
