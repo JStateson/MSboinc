@@ -262,7 +262,7 @@ int CLIENT_STATE::make_scheduler_request(PROJECT* p) {
     host_info.get_host_info(false);
     set_ncpus();
     iGPU = (gstate.spoof_gpus == -1) ? 0 : gstate.spoof_gpus;
-    if(p->app_configs.spoofedgpus > 0) iGPU = p->app_configs.spoofedgpus; // jys local takes precidence over global
+    if(p->app_configs.spoofedgpus > 0) iGPU = p->app_configs.spoofedgpus; // jys local takes precedence over global
     host_info.write(mf, !cc_config.suppress_net_info, false, iGPU);
 
     // get and write disk usage
