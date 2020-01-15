@@ -127,7 +127,6 @@ struct PROJECT : PROJ_AM {
     double cpu_time;
     double gpu_ec;
     double gpu_time;
-    int spoofedgpus; // jys per project spoofing
 
     // stuff related to scheduler RPCs and master fetch
     //

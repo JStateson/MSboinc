@@ -10,7 +10,7 @@ Usage: boinc [options]
   
 --set_backoff N                set backoff to this value
 
---spoof_gpus N                 fake number of gpus
+--spoof_gpus N                 fake number of gpus but app_config spoofing takes precedence
 
 --set_bunker_cnt <project> N   bunker this many workunits for given project then quit
   
@@ -34,5 +34,7 @@ The Milkyway bug fix is automatically enabled if the following debug flag is cre
 <mw_debug>1<mw_debug>
 If the debug variable is set to 0 then you must use the startup parameter --mw_bug_fix to enable this feature.
 <spoof_gpus>16</spoof_gps> requests data from the project sufficient for 16 GPUs.  Arguments passed in as a switch
-in the command line override corresponding cc_config settings.  Version now gives the build date and time.
+in the command line override corresponding cc_config settings.  Withinn <app_config> the parameter
+<spoofedgpus>n</spoofedgpus> overrides any spoofing in the command line or cc_config if non-zero.
+Version now gives the build date and time.
 

@@ -845,7 +845,6 @@ int APP_VERSION_CONFIG::parse(
         if (xp.parse_str("cmdline", cmdline, 256)) continue;
         if (xp.parse_double("avg_ncpus", avg_ncpus)) continue;
         if (xp.parse_double("ngpus", ngpus)) continue;
-        if (xp.parse_int("spoofedgpus",spoofedgpus)) continue;
         if (log_flags.unparsed_xml) {
             snprintf(buf, sizeof(buf), "Unparsed line in app_config.xml: %.128s", xp.parsed_tag);
             mv.push_back(string(buf));
@@ -894,6 +893,7 @@ int APP_CONFIGS::parse(XML_PARSER& xp, MSG_VEC& mv, LOG_FLAGS& log_flags) {
             }
             continue;
         }
+        if (xp.parse_int("spoofedgpus",spoofedgpus)) continue; //jys
         if (xp.parse_bool("report_results_immediately", report_results_immediately)) {
             continue;
         }
@@ -949,21 +949,21 @@ void APP_CONFIGS::write(MIOFILE& out) {
             "           <cmdline>%s</cmdline>\n"
             "           <avg_ncpus>%f</avg_ncpus>\n"
             "           <ngpus>%f</ngpus>\n"
-            "           <spoofedgpus>%d</spoofedgpus>\n"
             "       </app_version>\n",
             avc.app_name,
             avc.plan_class,
             avc.cmdline,
             avc.avg_ncpus,
-            avc.ngpus,
-            avc.spoofedgpus
+            avc.ngpus
         );
     }
     out.printf(
         "       <project_max_concurrent>%d</project_max_concurrent>\n"
+        "       <spoofedgpus>%d</spoofedgpus>\n" //jys
         "       <report_results_immediately>%d</report_results_immediately>\n"
         "   </app_config>\n",
         project_max_concurrent,
+        spoofedgpus, //jys
         report_results_immediately?1:0
     );
 }
