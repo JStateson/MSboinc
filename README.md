@@ -35,6 +35,9 @@ The Milkyway bug fix is automatically enabled if the following debug flag is cre
 If the debug variable is set to 0 then you must use the startup parameter --mw_bug_fix to enable this feature.
 <spoof_gpus>16</spoof_gps> requests data from the project sufficient for 16 GPUs.  Arguments passed in as a switch
 in the command line override corresponding cc_config settings.  Withinn <app_config> the parameter
-<spoofedgpus>n</spoofedgpus> overrides any spoofing in the command line or cc_config if non-zero.
+
+ <spoofedgpus>n</spoofedgpus> 
+
+overrides any spoofing in the command line or cc_config
 Version now gives the build date and time.
 
