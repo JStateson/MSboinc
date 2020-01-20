@@ -593,7 +593,7 @@ static void handle_result_op(GUI_RPC_CONN& grc, const char* op) {
     }
 
     if (!strcmp(op, "abort")) {
-        msg_printf(p, MSG_INFO, "task %s aborted by user", result_name);
+//jys        msg_printf(p, MSG_INFO, "task %s aborted by user", result_name);
         atp = gstate.lookup_active_task_by_result(rp);
         if (atp) {
             atp->abort_task(EXIT_ABORTED_VIA_GUI, "aborted by user");
