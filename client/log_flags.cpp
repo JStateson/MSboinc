@@ -485,7 +485,13 @@ if (xp.match_tag("exclude_proj_msg")) { //jys
         if (xp.parse_int("spoof_gpus", NumSpoofGPUs)) continue; //jys
         if (xp.parse_bool("mw_bug_fix", mw_bug_fix)) continue; //jys
         if (xp.parse_bool("allow_all_msgs", allow_all_msgs)) continue; //jys
-        if (xp.parse_string("busid_info_file", s)) continue;
+        if (xp.parse_string("busid_info_file", s))
+                {
+
+                        strcpy(strBusIDfilename,s.c_str());
+                        bIncludeBusID = true;
+                        continue; //jys
+                }
 
 
         // The following 3 tags have been moved to nvc_config and
