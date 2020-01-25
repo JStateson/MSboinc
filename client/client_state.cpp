@@ -567,16 +567,20 @@ int CLIENT_STATE::init() {
         ) {
         vector<string> descs;
         vector<string> warnings;
-	    vector<s_dev_info> DevMap; //jys
-
+	vector<s_dev_info> DevMap; //jys
 	if (cc_config.bIncludeBusID)
 	{
 	        bool bResult = GetBusidInfo(cc_config.strBusIDfilename, &DevMap);
-		msg_printf(NULL,MSG_INFO,"size:%d file:%s",
-			DevMap.size(), cc_config.strBusIDfilename);
 	        if (bResult)
 		{
-			msg_printf(NULL,MSG_INFO,"BusID:%s",DevMap[0].sBUSID);
+			strcpy(buf, "Manu  Boinc  Manu   BusID     Board\n ID    ID    Name   (hex)     Name");
+			msg_printf(NULL, MSG_INFO,buf);
+			for (i = 0; i < DevMap.size(); i++)
+			{
+				sprintf(buf, " %2d    %2d %5s  %8s    %s",
+					 DevMap[i].sid, DevMap[i].nBOD, DevMap[i].sManu, DevMap[i].sBUSID, DevMap[i].sBoardName);
+	                        msg_printf(NULL, MSG_INFO, buf);
+			}
 		}
 	}
         coprocs.get(

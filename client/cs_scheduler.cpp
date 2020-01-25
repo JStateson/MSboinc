@@ -1631,7 +1631,7 @@ PROJECT* CLIENT_STATE::FindProject(char *sname)
 
 PROJECT* CLIENT_STATE::ListProjects()
 {
-        char outbuf[1024];
+        char outbuf[2048];
         for (int i = 0; i < projects.size(); i++) {
                 PROJECT* p = projects[i];
                 safe_strcat(outbuf,p->project_name);
