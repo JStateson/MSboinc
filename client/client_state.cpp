@@ -74,6 +74,7 @@
 #include "client_state.h"
 
 #include "build_defs.h" //jys
+#include "cc_append.h"  //jys
 
 using std::max;
 
@@ -566,6 +567,13 @@ int CLIENT_STATE::init() {
         ) {
         vector<string> descs;
         vector<string> warnings;
+	vector<s_dev_info> DevMap;
+        bool bResult = GetBusidInfo("c:\\src\\cc_include.xml", &DevMap);
+	msg_printf(NULL,MSG_INFO,"size:%d",DevMap.size());
+        if (bResult)
+	{
+		msg_printf(NULL,MSG_INFO,"BusID:%s",DevMap[0].sBUSID);
+	}
         coprocs.get(
             cc_config.use_all_gpus, descs, warnings, cc_config.ignore_gpu_instance
         );

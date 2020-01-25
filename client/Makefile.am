@@ -89,7 +89,8 @@ boinc_client_SOURCES = \
     thread.cpp \
     time_stats.cpp \
     whetstone.cpp \
-    work_fetch.cpp
+    work_fetch.cpp \
+    devmap.cpp
 
 boinc_client_DEPENDENCIES = $(LIBBOINC)
 boinc_client_CPPFLAGS = $(AM_CPPFLAGS)
