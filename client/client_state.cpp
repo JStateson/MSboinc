@@ -567,7 +567,8 @@ int CLIENT_STATE::init() {
         ) {
         vector<string> descs;
         vector<string> warnings;
-	vector<s_dev_info> DevMap; //jys
+	    vector<s_dev_info> DevMap; //jys
+
 	if (cc_config.bIncludeBusID)
 	{
 	        bool bResult = GetBusidInfo(cc_config.strBusIDfilename, &DevMap);
