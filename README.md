@@ -42,7 +42,7 @@ Manu  Boinc  Manu   BusID     Board
 	
   1     0    NV   02:00.0    GTX-1660-Ti
 	
-	2     1    NV   03:00.0    P102-100
+  2     1    NV   03:00.0    P102-100
 	
   3     2    NV   04:00.0    P102-100
 	
