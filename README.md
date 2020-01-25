@@ -29,22 +29,23 @@ incrementing RPC port to create and run multiple clients. This is useful if a pr
 spoofing the number of GPUs does not provide an adaquate number of work units to continue crunching during
 the outage. The scripts, bash and cmd, to perform this function are under construction.
 
-
 The Milkyway bug fix is automatically enabled if the following debug flag is created
-<mw_debug>1<mw_debug>
-If the debug variable is set to 0 then you must use the startup parameter --mw_bug_fix to enable this feature.
-<spoof_gpus>16</spoof_gps> requests data from the project sufficient for 16 GPUs.  Arguments passed in as a switch
-in the command line override corresponding cc_config settings.  Withinn <app_config> the parameter
- <spoofedgpus>n</spoofedgpus>
-overrides any spoofing in the command line or cc_config
-Version now gives the build date and time.
+<mw_debug>1<mw_debug>.  This allows the MW project to constantly get data and avoid the 10 minute delay
+<spoof_gpus>16</spoof_gps> requests data from the spcified project sufficient for 16 GPUs.  Can be
+applied to specfic projects, or all projects.  Version now gives the build date and time.
 1-15-2020: now correlating busid and boinc id to the coprocessor board for better identificiation
 Manu  Boinc  Manu   BusID     Board
- ID    ID    Name   (hex)     Name
-  0     5    NV   01:00.0    GTX-1070
-  1     0    NV   02:00.0    GTX-1660-Ti
-  2     1    NV   03:00.0    P102-100
-  3     2    NV   04:00.0    P102-100
-  4     3    NV   05:00.0    P102-100
-  5     4    NV   06:00.0    GTX-1070-Ti
 
+ ID    ID    Name   (hex)     Name
+ 
+  0     5    NV   01:00.0    GTX-1070
+	
+  1     0    NV   02:00.0    GTX-1660-Ti
+	
+	2     1    NV   03:00.0    P102-100
+	
+  3     2    NV   04:00.0    P102-100
+	
+  4     3    NV   05:00.0    P102-100
+	
+  5     4    NV   06:00.0    GTX-1070-Ti
