@@ -174,7 +174,7 @@ struct CC_CONFIG {
     std::vector<std::string> exclusive_apps;
     std::vector<std::string> exclusive_gpu_apps;
     bool bIncludeBusID;		//jys
-    char strBusIDfilename[126]; //jys must be in data dir
+    char strBusIDfilename[256]; //jys must be in data dir
     bool exit_after_finish;
     bool exit_before_start;
     bool exit_when_idle;
