@@ -34,6 +34,7 @@ The Milkyway bug fix is automatically enabled if the following debug flag is cre
 <spoof_gpus>16</spoof_gps> requests data from the spcified project sufficient for 16 GPUs.  Can be
 applied to specfic projects, or all projects.  Version now gives the build date and time.
 1-15-2020: now correlating busid and boinc id to the coprocessor board for better identificiation
+
 Manu  Boinc  Manu   BusID     Board
 
  ID    ID    Name   (hex)     Name
