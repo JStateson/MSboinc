@@ -573,8 +573,10 @@ int CLIENT_STATE::init() {
 	        bool bResult = GetBusidInfo(cc_config.strBusIDfilename, &DevMap);
 	        if (bResult)
 		{
-			strcpy(buf, "Manu  Boinc  Manu   BusID     Board\n ID    ID    Name   (hex)     Name");
+			strcpy(buf, "Manu  Boinc  Manu   BusID     Board");
 			msg_printf(NULL, MSG_INFO,buf);
+                        strcpy(buf, " ID    ID    Name   (hex)     Name");
+                        msg_printf(NULL, MSG_INFO,buf);
 			for (i = 0; i < DevMap.size(); i++)
 			{
 				sprintf(buf, " %2d    %2d %5s  %8s    %s",
