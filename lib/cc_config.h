@@ -216,6 +216,7 @@ struct CC_CONFIG {
         // overrides use_certs
     bool vbox_window;
     int NumSpoofGPUs; //jys
+    bool allow_all_msgs; //jys
     bool mw_bug_fix;
 
     CC_CONFIG();

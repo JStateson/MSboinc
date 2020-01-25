@@ -218,10 +218,10 @@ void CC_CONFIG::show() {
             "Config: alternate platform: %s", alt_platforms[i].c_str()
         );
     }
-    for (i=0; i<exclude_gpus.size(); i++) {
+    for (i=0; i<exclude_gpus.size() && (!allow_all_msgs); i++) {
         show_exclude_gpu(exclude_gpus[i]);
     }
-    for (i=0; i<exclude_proj_msgs.size(); i++) {
+    for (i=0; i<exclude_proj_msgs.size() && (!allow_all_msgs); i++) {
         show_exclude_msgs(exclude_proj_msgs[i]);
     }
     for (i=0; i<exclusive_apps.size(); i++) {
@@ -484,6 +484,7 @@ if (xp.match_tag("exclude_proj_msg")) { //jys
         if (xp.parse_bool("vbox_window", vbox_window)) continue;
         if (xp.parse_int("spoof_gpus", NumSpoofGPUs)) continue; //jys
         if (xp.parse_bool("mw_bug_fix", mw_bug_fix)) continue; //jys
+        if (xp.parse_bool("allow_all_msgs", allow_all_msgs)) continue; //jys
 
 
         // The following 3 tags have been moved to nvc_config and

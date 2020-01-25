@@ -740,6 +740,7 @@ bool CLIENT_STATE::scheduler_rpc_poll() {
 // return index into exclusion list if filter fits
 int bIgnoreProjMsg(char *name, USER_MESSAGE &um){
     int i = -1;
+    if(cc_config.allow_all_msgs) return -1;
     for (auto epm : cc_config.exclude_proj_msgs){
         i++;
         if (log_flags.debug_proj_msg) {
