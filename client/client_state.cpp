@@ -567,12 +567,16 @@ int CLIENT_STATE::init() {
         ) {
         vector<string> descs;
         vector<string> warnings;
-	vector<s_dev_info> DevMap;
-        bool bResult = GetBusidInfo("c:\\src\\cc_include.xml", &DevMap);
-	msg_printf(NULL,MSG_INFO,"size:%d",DevMap.size());
-        if (bResult)
+	vector<s_dev_info> DevMap; //jys
+	if (cc_config.bIncludeBusID)
 	{
-		msg_printf(NULL,MSG_INFO,"BusID:%s",DevMap[0].sBUSID);
+	        bool bResult = GetBusidInfo(cc_config.strBusIDfilename, &DevMap);
+		msg_printf(NULL,MSG_INFO,"size:%d file:%s",
+			DevMap.size(), cc_config.strBusIDfilename);
+	        if (bResult)
+		{
+			msg_printf(NULL,MSG_INFO,"BusID:%s",DevMap[0].sBUSID);
+		}
 	}
         coprocs.get(
             cc_config.use_all_gpus, descs, warnings, cc_config.ignore_gpu_instance
