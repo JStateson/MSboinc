@@ -1,5 +1,5 @@
-** WARNING - USE THIS PROGRAM AT YOUR OWN RISK**
-
+##WARNING - USE THIS PROGRAM AT YOUR OWN RISK##
+Questions to josephy@stateson.net
 The sources here are based on 7.16.3 with changes to implement the following features
 ```
 Usage: boinc [options]
