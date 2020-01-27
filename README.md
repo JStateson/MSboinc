@@ -13,7 +13,7 @@ Usage: boinc [options]
 ```
 Filtering of project messages uses new options in cc_config.xml and allows for
 hiding messages that obscure the limited amount of space visible in the event log.  In addition, 
-some non-project messages such as "Backing off" are displayed only when the projet name changes.
+some non-project messages such as "Backing off" are displayed only when the project name changes.
 ```
 <exclude_proj_msg>
 <proj_name></proj_name>
