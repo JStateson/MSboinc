@@ -37,14 +37,14 @@ New debug switches
 ```
 New option parameters
 ```
-<spoof_gpus>4</spoof_gpus>
+<spoof_gpus>16</spoof_gpus>
 <allow_all_msgs>0</allow_all_msgs>
 <busid_info_file>/etc/boinc-client/cc_include.xml</busid_info_file>
 ```                     
-New app_config.xml parameters for projects
+New app_config.xml parameter for projects:  spoofed value here overrides any global spoof value
 ```
 <app_config>
- <spoofedgpus>16</spoofedgpus>
+ <spoofedgpus>4</spoofedgpus>
 </app_config>
 ```
 
