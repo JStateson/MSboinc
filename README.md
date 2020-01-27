@@ -12,7 +12,7 @@ Usage: boinc [options]
 --bunker_time_string <text>    unix time cutoff for reporting in this format exactly: 11/24/2019T10:41:29
 --version                      now gives date and time of build in additon to 7.16.33
 ```
-Filtering of project messages uses new options in cc_config.xml and allows for
+Filtering of project messages is done in the debug section of cc_config.xml and allows for
 hiding messages that obscure the limited amount of space visible in the event log.  In addition, 
 some non-project messages such as "Backing off" are displayed only when the project name changes.
 ```
@@ -29,13 +29,13 @@ Some useful filters
 <msg_content>No work sent</msg_content>
 <msg_content>No work is available</msg_content>
 ```
-New debug switches
+Additional debug switches
 ```
 <debug_proj_msg>0</debug_proj_msg>
 <mw_debug>0</mw_debug>
 <debug_proj_msg>0</debug_proj_msg>
 ```
-New option parameters
+New option parameters (in options section)
 ```
 <spoof_gpus>16</spoof_gpus>
 <allow_all_msgs>0</allow_all_msgs>
