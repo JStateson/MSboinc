@@ -53,10 +53,10 @@ incrementing RPC port to create and run multiple clients. This is useful if a pr
 spoofing the number of GPUs does not provide an adaquate number of work units to continue crunching during
 the outage. The scripts, bash and cmd, to perform this function are under construction.
 
-The Milkyway bug fix is automatically enabled if th debug flag <mw_debug>1<mw_debug> exists
+The Milkyway bug fix is automatically enabled if the debug flag <mw_debug>1<mw_debug> exists
 Version now gives the build date and time in addition to "7.16.33"
 Bus ID and BOINC ID can be correlated to the coprocessor board for better identificiation but this
-requires runing the MakeTable.py script.  Once run, the correlation can show something like the following
+requires runing the [MakeTable.py](https://github.com/JStateson/BoincTasks) script.  Once run, the correlation can show something like the following
 ```
 Manu  Boinc  Manu   BusID     Board
  ID    ID    Name   (hex)     Name
