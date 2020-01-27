@@ -10,11 +10,24 @@ Usage: boinc [options]
 --mw_bug_fix                   delay attaching output to allow new work to download (Milkyway only)
 --bunker_time_string <text>    unix time cutoff for reporting in this format exactly:  "11/24/2019T10:41:29"
 ```
-Filtering of project messages uses new features in cc_config.xml and allows for hiding messages that obscure the
-limited amount of space visible in the event log.  See cc_config.xml for a sample filter that eliminates most
-of the ignoreable message like "no work available for xxx" or "boinc deleted yyy".  In addtion, some non-project
-messages such as "Backing off" are displayed only when the projet name changes.
-                               
+Filtering of project messages uses new features under "<options" in  cc_config.xml and allows for
+hiding messages that obscure the limited amount of space visible in the event log.  In addition, 
+some non-project messages such as "Backing off" are displayed only when the projet name changes.
+```
+<exclude_proj_msg>
+<proj_name></proj_name>
+<msg_type>low</msg_type>
+<msg_content></msg_content>
+</exclude_proj_msg>
+'''
+Some useful filters
+```
+<msg_content>settings do not allow fetching tasks</msg_content>
+<msg_content>No work available</msg_content>
+<msg_content>No work sent</msg_content>
+<msg_content>No work is available</msg_content>
+```
+                     
 This project is named master - slave as the intent is to use the project information at \ProjectData\Boinc
 (or /var/lib/boinc) as a master and make copies of it using an incrementing hostname, same password, and
 incrementing RPC port to create and run multiple clients. This is useful if a project goes offline and
