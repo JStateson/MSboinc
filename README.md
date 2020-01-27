@@ -1,4 +1,5 @@
-** WARNING - USE THIS PROGRAM AT YOUR OWN RISK.. Questions to josephy@stateson.net**
+** WARNING - USE THIS PROGRAM AT YOUR OWN RISK**
+Questions to josephy@stateson.net
 The sources here are based on 7.16.3 with changes to implement the following features
 ```
 Usage: boinc [options]
@@ -8,7 +9,7 @@ Usage: boinc [options]
 --spoof_gpus N                 fake number of gpus but app_config spoofing takes precedence
 --set_bunker_cnt <project> N   bunker this many workunits for given project then quit  
 --mw_bug_fix                   delay attaching output to allow new work to download (Milkyway only)
---bunker_time_string <text>    unix time cutoff for reporting in this format exactly:  "11/24/2019T10:41:29"
+--bunker_time_string <text>    unix time cutoff for reporting in this format exactly: 11/24/2019T10:41:29
 ```
 Filtering of project messages uses new features under <options> in  cc_config.xml and allows for
 hiding messages that obscure the limited amount of space visible in the event log.  In addition, 
@@ -19,7 +20,7 @@ some non-project messages such as "Backing off" are displayed only when the proj
 <msg_type>low</msg_type>
 <msg_content></msg_content>
 </exclude_proj_msg>
-'''
+```
 Some useful filters
 ```
 <msg_content>settings do not allow fetching tasks</msg_content>
