@@ -1,23 +1,15 @@
-WARNING - USE THIS PROGRAM AT YOUR OWN RISK. If you use the bunkering feature be aware
-that you must only crunch the project you want to bunker and no others. Questions to josephy@stateson.net.
+** WARNING - USE THIS PROGRAM AT YOUR OWN RISK.. Questions to josephy@stateson.net**
 The sources here are based on 7.16.3 with changes to implement the following features
-
+```
 Usage: boinc [options]
-
---set_hostname <name>          use this as hostname
-  
+--set_hostname <name>          use this as hostname  
 --set_password <password>      rpc gui password
-  
 --set_backoff N                set backoff to this value
-
 --spoof_gpus N                 fake number of gpus but app_config spoofing takes precedence
-
---set_bunker_cnt <project> N   bunker this many workunits for given project then quit
-  
+--set_bunker_cnt <project> N   bunker this many workunits for given project then quit  
 --mw_bug_fix                   delay attaching output to allow new work to download (Milkyway only)
-
 --bunker_time_string <text>    unix time cutoff for reporting in this format exactly:  "11/24/2019T10:41:29"
-                               
+```
 Filtering of project messages uses new features in cc_config.xml and allows for hiding messages that obscure the
 limited amount of space visible in the event log.  See cc_config.xml for a sample filter that eliminates most
 of the ignoreable message like "no work available for xxx" or "boinc deleted yyy".  In addtion, some non-project
