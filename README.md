@@ -11,7 +11,7 @@ Usage: boinc [options]
 --mw_bug_fix                   delay attaching output to allow new work to download (Milkyway only)
 --bunker_time_string <text>    unix time cutoff for reporting in this format exactly: 11/24/2019T10:41:29
 ```
-Filtering of project messages uses new features under <options> in  cc_config.xml and allows for
+Filtering of project messages uses new options in cc_config.xml and allows for
 hiding messages that obscure the limited amount of space visible in the event log.  In addition, 
 some non-project messages such as "Backing off" are displayed only when the projet name changes.
 ```
