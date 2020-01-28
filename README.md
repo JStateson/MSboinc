@@ -35,7 +35,6 @@ Additional debug switches
 ```
 <debug_proj_msg>0</debug_proj_msg>
 <mw_debug>0</mw_debug>
-<allow_all_msgs>0</allow_all_msgs>  <!-- overrides filters -->
 ```
 New option parameters (in options section)
 ```
