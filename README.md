@@ -41,6 +41,7 @@ New option parameters (in options section)
 <spoof_gpus>16</spoof_gpus>
 <allow_all_msgs>0</allow_all_msgs>
 <busid_info_file>/etc/boinc-client/cc_include.xml</busid_info_file>
+<mw_bug_fix>0</mw_buf_fix>  <!-- enable milkyway bug fix -->
 ```                     
 New app_config.xml parameter for projects:  spoofed value here overrides any global spoof value
 ```
