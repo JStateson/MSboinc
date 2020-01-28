@@ -14,7 +14,7 @@ Usage: boinc [options]
 --bunker_time_string <text>    unix time cutoff for reporting in this format exactly: 11/24/2019T10:41:29
 --version                      now gives date and time of build in additon to 7.16.33
 ```
-Filtering of project messages is done in the debug section of cc_config.xml and allows for
+Filtering of project messages is done in the optoins section of cc_config.xml and allows for
 hiding messages that obscure the limited amount of space visible in the event log.  In addition, 
 some non-project messages such as "Backing off" are displayed only when the project name changes.
 ```
@@ -31,22 +31,27 @@ Some useful filters
 <msg_content>No work sent</msg_content>
 <msg_content>No work is available</msg_content>
 ```
-Additional debug switches
+
+Additional option parameters (in options section)
+```
+<spoof_gpus>16</spoof_gpus>     <!-- project spoofing overrides this -->
+<allow_all_msgs>0</allow_all_msgs>
+<busid_info_file>/etc/boinc-client/cc_include.xml</busid_info_file>
+<mw_bug_fix>0</mw_buf_fix>  <!-- enable milkyway bug fix -->
+<disable_spoofing>0</disable_spoofing>  <!-- set to 1 to stop all spoofing -->
+```       
+New debug (log_flag) switches
 ```
 <debug_proj_msg>0</debug_proj_msg>
 <mw_debug>0</mw_debug>
 ```
-New option parameters (in options section)
-```
-<spoof_gpus>16</spoof_gpus>
-<allow_all_msgs>0</allow_all_msgs>
-<busid_info_file>/etc/boinc-client/cc_include.xml</busid_info_file>
-<mw_bug_fix>0</mw_buf_fix>  <!-- enable milkyway bug fix -->
-```                     
 New app_config.xml parameter for projects:  spoofed value here overrides any global spoof value
 ```
 <app_config>
- <spoofedgpus>4</spoofedgpus>
+ <spoofedgpus>4</spoofedgpus>  <!-- default applied to all coprocs unless the coproc cnt is specified -->
+ <spoofed_devices>     <!-- devices all lower case: nvidia, ati, intel
+  <nvidia>2</nvidia>   <!-- set nvidia to 2, other boards are 4  and cc_config spoofing is ignored -->
+ </spoofed_devices>    <!-- cc_config disable stops all spoofing -->
 </app_config>
 ```
 
