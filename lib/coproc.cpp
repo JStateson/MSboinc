@@ -345,7 +345,7 @@ void COPROC_NVIDIA::write_xml(MIOFILE& f, bool scheduler_rpc, int iGPU) { //jys
         "   <available_ram>%f</available_ram>\n"
         "   <have_cuda>%d</have_cuda>\n"
         "   <have_opencl>%d</have_opencl>\n",
-        (iGPU==0) ?count : iGPU,
+        (iGPU==0) ?count : spoofed_count,
         prop.name,
         available_ram,
         have_cuda ? 1 : 0,
@@ -656,7 +656,7 @@ void COPROC_ATI::write_xml(MIOFILE& f, bool scheduler_rpc, int iGPU) { //jys
         "   <available_ram>%f</available_ram>\n"
         "   <have_cal>%d</have_cal>\n"
         "   <have_opencl>%d</have_opencl>\n",
-        (iGPU == 0) ? count : iGPU,
+        (iGPU == 0) ? count : spoofed_count,
         name,
         available_ram,
         have_cal ? 1 : 0,
@@ -900,7 +900,7 @@ void COPROC_INTEL::write_xml(MIOFILE& f, bool scheduler_rpc, int iGPU) {
         "   <name>%s</name>\n"
         "   <available_ram>%f</available_ram>\n"
         "   <have_opencl>%d</have_opencl>\n",
-        (iGPU == 0) ? count : iGPU,
+        (iGPU == 0) ? count : spoofed_count,
         name,
         available_ram,
         have_opencl ? 1 : 0

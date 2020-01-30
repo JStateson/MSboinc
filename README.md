@@ -8,7 +8,7 @@ Usage: boinc [options]
 --set_hostname <name>          use this as hostname  
 --set_password <password>      rpc gui password
 --set_backoff N                set backoff to this value
---spoof_gpus N                 fake number of gpus but app_config spoofing takes precedence
+--do_not_spoof                 disable gpu spoofing, if spoofing enabled enabled
 --set_bunker_cnt <project> N   bunker this many workunits for given project then quit  
 --mw_bug_fix                   delay attaching output to allow new work to download (Milkyway only)
 --bunker_time_string <text>    unix time cutoff for reporting in this format exactly: 11/24/2019T10:41:29
@@ -39,20 +39,14 @@ Additional option parameters (in options section)
 <busid_info_file>/etc/boinc-client/cc_include.xml</busid_info_file>
 <mw_bug_fix>0</mw_buf_fix>  <!-- enable milkyway bug fix -->
 <disable_spoofing>0</disable_spoofing>  <!-- set to 1 to stop all spoofing -->
+<spoof_nvidia>4</spoof_nvidia> 
+<spoof_ati>3</spoof_ati>     
+<spoof_intel>1</spoof_intel>   
 ```       
 New debug (log_flag) switches
 ```
 <debug_proj_msg>0</debug_proj_msg>
 <mw_debug>0</mw_debug>
-```
-New app_config.xml parameter for projects:  spoofed value here overrides any global spoof value
-```
-<app_config>
- <spoofedgpus>4</spoofedgpus>  <!-- default applied to all coprocs unless the coproc cnt is specified -->
- <spoofed_devices>     <!-- devices all lower case: nvidia, ati, intel
-  <nvidia>2</nvidia>   <!-- set nvidia to 2, other boards are 4  and cc_config spoofing is ignored -->
- </spoofed_devices>    <!-- cc_config disable stops all spoofing -->
-</app_config>
 ```
 
 This project is named master - slave as the intent is to use the project information at \ProjectData\Boinc

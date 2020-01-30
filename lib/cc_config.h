@@ -217,7 +217,7 @@ struct CC_CONFIG {
     bool use_certs_only;
         // overrides use_certs
     bool vbox_window;
-    int NumSpoofGPUs; //jys
+	int spoof_nvidia, spoof_ati, spoof_intel; //jys
     bool allow_all_msgs; //jys
     bool mw_bug_fix;
 

@@ -158,6 +158,7 @@ struct PCI_INFO {
 struct COPROC {
     char type[256];     // must be unique
     int count;          // how many are present
+	int spoofed_count;  // jys this many spoofed
     bool non_gpu;       // coproc is not a GPU
     double peak_flops;
     double used;        // how many are in use (used by client)
@@ -467,6 +468,13 @@ struct COPROCS {
         }
         return n;
     }
+	inline int spoofed_ndevs() {
+		int n = 0;
+		for (int i = 1; i<n_rsc; i++) {
+			n += coprocs[i].spoofed_count;
+		}
+		return n;
+	}
     inline bool have_nvidia() {
         return (nvidia.count > 0);
     }

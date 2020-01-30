@@ -105,7 +105,7 @@ static char* client_path;
 static char client_dir[MAXPATHLEN];
     // current directory at start of client
 
-void COPROCS::get(
+void COPROCS::get(  // jys this is called from the init routine in client_state
     bool use_all, vector<string>&descs, vector<string>&warnings,
     IGNORE_GPU_INSTANCE& ignore_gpu_instance
 ) {

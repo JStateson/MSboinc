@@ -156,7 +156,10 @@ struct CLIENT_STATE {
         bool bSetPassword = false; // set to true if user did a --set_password "" so as to make it null
         int SetBackoff = -1;       // jys set backoff to a value else use default
         int BunkerThreshold = -1; // jys
-        int spoof_gpus = -1; //jys
+        bool bDoNotSpoof = false; //jys spoofing is enabled when values for cooprocs are given
+						// enabling this at startup avoids having to edit the config.xml table
+						// used for diagnostic only to stop spoofing
+		bool bEnableSpoofing = false; //jys
         bool enable_mw_delay = false; //jys
         double BunkerTime = -1.0; //jys
         int NumUnderCutoff = 0; //jys need to handle these properly and not just delete them

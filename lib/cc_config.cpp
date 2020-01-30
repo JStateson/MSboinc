@@ -274,7 +274,9 @@ void CC_CONFIG::defaults() {
     use_certs = false;
     use_certs_only = false;
     vbox_window = false;
-    NumSpoofGPUs = -1; //jys
+	spoof_nvidia = 0;
+	spoof_ati = 0;
+	spoof_intel=0; //jys
     allow_all_msgs = 0; //jys
     mw_bug_fix = 0; //jys
     bIncludeBusID = false;
@@ -464,8 +466,9 @@ int CC_CONFIG::parse_options(XML_PARSER& xp) {
         if (xp.parse_bool("use_certs", use_certs)) continue;
         if (xp.parse_bool("use_certs_only", use_certs_only)) continue;
         if (xp.parse_bool("vbox_window", vbox_window)) continue;
-
-        if (xp.parse_int("spoof_gpus", NumSpoofGPUs)) continue; //jys
+		if (xp.parse_int("spoof_nvidia", spoof_nvidia)) continue; //jys
+		if (xp.parse_int("spoof_ati", spoof_ati)) continue; //jys
+		if (xp.parse_int("spoof_intel", spoof_intel)) continue; //jys
         if (xp.parse_bool("mw_bug_fix", mw_bug_fix)) continue; //jys
         if (xp.parse_bool("allow_all_msgs", allow_all_msgs)) continue; //jys
         if (xp.parse_string("busid_info_file", s))
@@ -737,7 +740,9 @@ int CC_CONFIG::write(MIOFILE& out, LOG_FLAGS& log_flags) {
         "        <use_certs>%d</use_certs>\n"
         "        <use_certs_only>%d</use_certs_only>\n"
         "        <vbox_window>%d</vbox_window>\n"
-        "        <spoof_gpus>%d</spoof_gpus>\n" //jys
+		"        <spoof_nvidia>%d</spoof_nvidia>\n" //jys
+		"        <spoof_ati>%d</spoof_ati>\n" //jys
+		"        <spoof_intel>%d</spoof_intel>\n" //jys
         "        <mw_bug_fix>%d</mw_bug_fix>\n" //jys
 	"        <allow_all_msgs>%d</allow_all_msgs>\n" //jys
 	"	 <busid_info_file>%s</busid_info_file>\n", //jys
@@ -755,7 +760,9 @@ int CC_CONFIG::write(MIOFILE& out, LOG_FLAGS& log_flags) {
         use_certs,
         use_certs_only,
         vbox_window,
-        NumSpoofGPUs, //jys
+        spoof_nvidia, //jys
+		spoof_ati,
+		spoof_intel,
         mw_bug_fix, //jys
 	allow_all_msgs, //jys
 	strBusIDfilename //jys

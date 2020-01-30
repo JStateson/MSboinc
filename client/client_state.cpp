@@ -585,9 +585,11 @@ int CLIENT_STATE::init() {
 			}
 		}
 	}
+		// jys following call gets a count of the coprocs but values are not put into "coprocs" till later down in code
         coprocs.get(
             cc_config.use_all_gpus, descs, warnings, cc_config.ignore_gpu_instance
         );
+
         for (i=0; i<descs.size(); i++) {
             msg_printf(NULL, MSG_INFO, "%s", descs[i].c_str());
         }
@@ -612,11 +614,13 @@ int CLIENT_STATE::init() {
         fake_opencl_gpu("Mali-T628");
 #endif
     }
-
+	gstate.bEnableSpoofing = false;
     if (coprocs.have_nvidia()) {
         if (rsc_index(GPU_TYPE_NVIDIA)>0) {
             msg_printf(NULL, MSG_INFO, "NVIDIA GPU info taken from cc_config.xml");
         } else {
+			coprocs.nvidia.spoofed_count = cc_config.spoof_nvidia; //jys
+			gstate.bEnableSpoofing |= (cc_config.spoof_nvidia > 0);
             coprocs.add(coprocs.nvidia);
         }
     }
@@ -624,6 +628,8 @@ int CLIENT_STATE::init() {
         if (rsc_index(GPU_TYPE_ATI)>0) {
             msg_printf(NULL, MSG_INFO, "ATI GPU info taken from cc_config.xml");
         } else {
+			coprocs.ati.spoofed_count = cc_config.spoof_ati; //jys
+			gstate.bEnableSpoofing |= (cc_config.spoof_ati > 0);
             coprocs.add(coprocs.ati);
         }
     }
@@ -631,9 +637,13 @@ int CLIENT_STATE::init() {
         if (rsc_index(GPU_TYPE_INTEL)>0) {
             msg_printf(NULL, MSG_INFO, "INTEL GPU info taken from cc_config.xml");
         } else {
+			coprocs.intel_gpu.spoofed_count = cc_config.spoof_intel; //jys
+			gstate.bEnableSpoofing |= (cc_config.spoof_intel > 0);
             coprocs.add(coprocs.intel_gpu);
         }
     }
+	if (gstate.bDoNotSpoof)	// jys may want to override spoofing
+		gstate.bEnableSpoofing = false; 
     coprocs.add_other_coproc_types();
     
     host_info.coprocs = coprocs;
@@ -641,6 +651,7 @@ int CLIENT_STATE::init() {
     if (coprocs.none() ) {
         msg_printf(NULL, MSG_INFO, "No usable GPUs found");
     }
+	// jys have coprocs counted up at this time
 
     set_no_rsc_config();
 

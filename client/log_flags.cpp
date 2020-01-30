@@ -482,7 +482,9 @@ if (xp.match_tag("exclude_proj_msg")) { //jys
         if (xp.parse_bool("use_certs", use_certs)) continue;
         if (xp.parse_bool("use_certs_only", use_certs_only)) continue;
         if (xp.parse_bool("vbox_window", vbox_window)) continue;
-        if (xp.parse_int("spoof_gpus", NumSpoofGPUs)) continue; //jys
+		if (xp.parse_int("spoof_nvidia", spoof_nvidia)) continue; //jys
+		if (xp.parse_int("spoof_ati", spoof_ati)) continue; //jys
+		if (xp.parse_int("spoof_intel", spoof_intel)) continue; //jys
         if (xp.parse_bool("mw_bug_fix", mw_bug_fix)) continue; //jys
         if (xp.parse_bool("allow_all_msgs", allow_all_msgs)) continue; //jys
         if (xp.parse_string("busid_info_file", s))

@@ -181,7 +181,7 @@ int HOST_INFO::write(
         d_free,
         osn,
         osv,
-        (iGPU == 0) ? coprocs.ndevs() : iGPU,  //jys
+        (iGPU == 0) ? coprocs.ndevs() : coprocs.spoofed_ndevs(),  //jys
 #ifdef _WIN64
         wsl_available ? 1 : 0
 #else

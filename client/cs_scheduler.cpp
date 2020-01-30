@@ -261,8 +261,8 @@ int CLIENT_STATE::make_scheduler_request(PROJECT* p) {
     //
     host_info.get_host_info(false);
     set_ncpus();
-    iGPU = (gstate.spoof_gpus == -1) ? 0 : gstate.spoof_gpus;
-    if(p->app_configs.spoofedgpus > 0) iGPU = p->app_configs.spoofedgpus; // jys local takes precedence over global
+	iGPU = gstate.bEnableSpoofing ? 1 : 0;
+    //if(p->app_configs.spoofedgpus > 0) iGPU = p->app_configs.spoofedgpus; // jys local takes precedence over global
     host_info.write(mf, !cc_config.suppress_net_info, false, iGPU);
 
     // get and write disk usage
@@ -280,13 +280,13 @@ int CLIENT_STATE::make_scheduler_request(PROJECT* p) {
 
     if (coprocs.n_rsc > 1) {
         work_fetch.copy_requests();
-                if (gstate.spoof_gpus != -1) // jys
-                {
+                //if (gstate.spoof_gpus != -1) // jys
+                //{
                         //the folloiwng need to be investigated.  possibly a larger first batch of work units can be obtained
                         //but dont know exactly what these "instances" do
                         //coprocs.ati.req_instances = iGPU * GPU_PERFORMANCE;
                         //coprocs.nvidia.req_instances = iGPU * GPU_PERFORMANCE;
-                }
+                //}
 
         coprocs.write_xml(mf, true, iGPU);
     }
@@ -568,7 +568,7 @@ bool CLIENT_STATE::scheduler_rpc_poll() {
         {
                 bListOnce = false;
                 ListProjects();
-                msg_printf(0, MSG_INFO, "%s bunkering; spoofing:%s; MWfix:%s", bBunkerEnabled ? gstate.ProjectStarted : "NOT", (gstate.spoof_gpus == -1) ? "no" : "yes",
+                msg_printf(0, MSG_INFO, "%s bunkering; spoofing:%s; MWfix:%s", bBunkerEnabled ? gstate.ProjectStarted : "NOT", gstate.bEnableSpoofing ? "yes" : "no",
                         gstate.enable_mw_delay ? "yes" : "no");
                 if (BunkerTime >= 0)
                 {
@@ -1631,15 +1631,21 @@ PROJECT* CLIENT_STATE::FindProject(char *sname)
 
 PROJECT* CLIENT_STATE::ListProjects()
 {
-        char outbuf[2048];
-        for (int i = 0; i < projects.size(); i++) {
-                PROJECT* p = projects[i];
-                safe_strcat(outbuf,p->project_name);
-                if(i < projects.size()-1)
-                    strcat(outbuf,",");
-        }
-        msg_printf(0, MSG_INFO, "Project Name:%s",outbuf);
-        return NULL;
+	char outbuf[1024] = "";
+	bool bTrigger;
+	for (int i = 0; i < projects.size(); i++) {
+		bTrigger = (i > 0) && (i % 4 == 0);
+		PROJECT* p = projects[i];
+		safe_strcat(outbuf, p->project_name);
+		if (!bTrigger)
+			safe_strcat(outbuf, ",");
+		else if (outbuf[0] != '\0') {
+			msg_printf(0, MSG_INFO, "Project Name:%s", outbuf);
+			outbuf[0] = '\0';
+		}
+	}
+	msg_printf(0, MSG_INFO, "Project Name:%s", outbuf);
+	return NULL;
 }
 /*
 Einstein@Home

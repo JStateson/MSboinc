@@ -74,7 +74,7 @@ static void print_options(char* prog) {
                 "    --set_hostname <name>          use this as hostname\n" //jys
                 "    --set_password <password>      rpc gui password\n"
                 "    --set_backoff N                set backoff to this value\n"
-                "    --spoof_gpus N                 fake number of gpus\n"
+                "    --do_not_spoof                 disregard any spoofing parameters\n"
                 "    --set_bunker_cnt <project> N   bunker this many workunits for given project then quit\n"
                 "    --bunker_time_string <text>    unix time cutoff for reporting - used with bunker\n"
                 "                                   in this format exactly:  \"11/24/2019T10:41:29\"\n"
@@ -198,9 +198,8 @@ else if (ARG(set_bunker_cnt)) { //jys
                                 safe_strcpy(set_hostname, argv[++i]);
                         }
                 }
-                else if (ARG(spoof_gpus)) { //jys
-                        if (i == argc - 1) show_options = true;
-                        else spoof_gpus = atoi(argv[++i]);
+				else if (ARG(do_not_spoof)) { //jys
+						bDoNotSpoof = true;
                 }
                 else if (ARG(set_password)) { // jys
                         if (i == argc - 1) {
