@@ -7,7 +7,6 @@ Usage: boinc [options]
 --set_password <password>      rpc gui password
 --set_backoff N                set backoff to this value
 --do_not_spoof                 disable gpu spoofing, if spoofing was enabled
-
 --set_bunker_cnt <project> N   bunker this many workunits for given project then quit  
 --mw_bug_fix                   delay attaching output to allow new work to download (Milkyway only)
 --bunker_time_string <text>    unix time cutoff for reporting in this format exactly: 11/24/2019T10:41:29
