@@ -1,7 +1,5 @@
 **WARNING: USE THIS PROGRAM AT YOUR OWN RISK,  The executable is NOT in this project, you must built it**
 
-**If you find an executable on the internet that seems be be from here, DO NOT USE IT as it is not from here**
-
 The sources here are based on 7.16.3 with changes to implement the following features
 ```
 Usage: boinc [options]
