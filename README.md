@@ -34,7 +34,7 @@ Additional option parameters (in options section)
 ```
 <allow_all_msgs>1</allow_all_msgs>  <!-- re-enable messages -->
 <busid_info_file>/etc/boinc-client/cc_include.xml</busid_info_file>
-<mw_bug_fix>0</mw_buf_fix>  <!-- enable milkyway bug fix -->
+<mw_bug_fix>1</mw_buf_fix>  <!-- enable milkyway bug fix -->
 <spoof_nvidia>4</spoof_nvidia> 
 <spoof_ati>3</spoof_ati>     
 <spoof_intel>1</spoof_intel>   
