@@ -8,13 +8,14 @@ Usage: boinc [options]
 --set_hostname <name>          use this as hostname  
 --set_password <password>      rpc gui password
 --set_backoff N                set backoff to this value
---do_not_spoof                 disable gpu spoofing, if spoofing enabled enabled
+--do_not_spoof                 disable gpu spoofing, if spoofing was enabled
+
 --set_bunker_cnt <project> N   bunker this many workunits for given project then quit  
 --mw_bug_fix                   delay attaching output to allow new work to download (Milkyway only)
 --bunker_time_string <text>    unix time cutoff for reporting in this format exactly: 11/24/2019T10:41:29
 --version                      now gives date and time of build in additon to 7.16.33
 ```
-Filtering of project messages is done in the optoins section of cc_config.xml and allows for
+Filtering of project messages is done in the options section of cc_config.xml and allows for
 hiding messages that obscure the limited amount of space visible in the event log.  In addition, 
 some non-project messages such as "Backing off" are displayed only when the project name changes.
 ```
@@ -31,14 +32,11 @@ Some useful filters
 <msg_content>No work sent</msg_content>
 <msg_content>No work is available</msg_content>
 ```
-
 Additional option parameters (in options section)
 ```
-<spoof_gpus>16</spoof_gpus>     <!-- project spoofing overrides this -->
-<allow_all_msgs>0</allow_all_msgs>
+<allow_all_msgs>1</allow_all_msgs>  <!-- re-enable messages -->
 <busid_info_file>/etc/boinc-client/cc_include.xml</busid_info_file>
 <mw_bug_fix>0</mw_buf_fix>  <!-- enable milkyway bug fix -->
-<disable_spoofing>0</disable_spoofing>  <!-- set to 1 to stop all spoofing -->
 <spoof_nvidia>4</spoof_nvidia> 
 <spoof_ati>3</spoof_ati>     
 <spoof_intel>1</spoof_intel>   
@@ -57,7 +55,7 @@ the outage. The scripts, bash and cmd, to perform this function are under constr
 
 The Milkyway bug fix is automatically enabled if the debug flag <mw_debug>1<mw_debug> exists
 Bus ID and BOINC ID can be correlated to the coprocessor board for better identificiation but this
-requires running the [MakeTable.py](https://github.com/JStateson/BoincTasks) script.  Once run, the correlation can show something like the following
+requires running the [MakeTable.py](https://github.com/JStateson/BoincTasks) script.  Once run, the correlation can show something like this
 ```
 Manu  Boinc  Manu   BusID     Board
  ID    ID    Name   (hex)     Name
