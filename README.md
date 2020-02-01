@@ -28,6 +28,7 @@ Some useful filters
 <msg_content>No work available</msg_content>
 <msg_content>No work sent</msg_content>
 <msg_content>No work is available</msg_content>
+<msg_content>Resent lost</msg_content>
 ```
 Additional option parameters (in options section)
 ```
