@@ -2,7 +2,6 @@
 
 #define BUILD_DEFS_H
 
-
 // Example of __DATE__ string: "Jul 27 2012"
 //                              01234567890
 
