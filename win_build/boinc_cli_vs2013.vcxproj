@@ -222,6 +222,9 @@
       <Message>Checking boinc.exe dependencies</Message>
       <Command>"$(ProjectDir)\buildenv.cmd" devenvdir "$(DevEnvDir)" type "$(Configuration)" platform "$(Platform)" exec updatedepends.cmd</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>C:\Windows\System32\cmd.exe /C  "$(ProjectDir)/touch_date.bat"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
@@ -344,6 +347,9 @@
       <Message>Checking boinc.exe dependencies</Message>
       <Command>"$(ProjectDir)\buildenv.cmd" devenvdir "$(DevEnvDir)" type "$(Configuration)" platform "$(Platform)" exec updatedepends.cmd</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>C:\Windows\System32\cmd.exe /C  "$(ProjectDir)/touch_date.bat"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\client\acct_mgr.cpp" />
