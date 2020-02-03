@@ -29,14 +29,16 @@ Some useful filters
 <msg_content>No work sent</msg_content>
 <msg_content>No work is available</msg_content>
 <msg_content>Resent lost</msg_content>
+<msg_content>resend lost</msg_content>
+<msg_content>already reported</msg_content>
 ```
 Additional option parameters (in options section)
 ```
 <allow_all_msgs>1</allow_all_msgs>  <!-- re-enable messages -->
 <busid_info_file>/etc/boinc-client/cc_include.xml</busid_info_file>
 <mw_bug_fix>1</mw_buf_fix>  <!-- enable milkyway bug fix -->
-<spoof_nvidia>4</spoof_nvidia> 
-<spoof_ati>3</spoof_ati>     
+<spoof_nvidia>4</spoof_nvidia> <!-- raise or lower value for load balancing -->
+<spoof_ati>3</spoof_ati>       <!-- raise value before project goes offline to continue crunching -->
 <spoof_intel>1</spoof_intel>   
 ```       
 New debug (log_flag) switches
