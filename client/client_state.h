@@ -160,7 +160,7 @@ struct CLIENT_STATE {
 						// enabling this at startup avoids having to edit the config.xml table
 						// used for diagnostic only to stop spoofing
 		bool bEnableSpoofing = false; //jys
-        bool enable_mw_delay = false; //jys
+        bool enable_mw_delay = true; //jys enable delay just for mw peoople
         double BunkerTime = -1.0; //jys
         int NumUnderCutoff = 0; //jys need to handle these properly and not just delete them
         char bunker_time_string[256]; //jys
