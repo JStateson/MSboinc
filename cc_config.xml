@@ -1,48 +1,54 @@
-!<--   Sample config to show features not in the 7.16.3 release ->?
-
 <cc_config>
-  <log_flags>
-    <mw_debug>1</mw_debug>
-    <debug_proj_msg>1</debug_proj_msg>
-  </log_flags>
-  <options>
-
-
-<exclude_proj_msg>
-<proj_name></proj_name>
-<msg_type>low</msg_type>
-<msg_content></msg_content>
-</exclude_proj_msg>
-
-
-<exclude_proj_msg>
-<proj_name></proj_name>
-<msg_type></msg_type>
-<msg_content>settings do not allow fetching tasks</msg_content>
-</exclude_proj_msg>
-
-
-<exclude_proj_msg>
-<proj_name></proj_name>
-<msg_type></msg_type>
-<msg_content>No work available</msg_content>
-</exclude_proj_msg>
-
-
-<exclude_proj_msg>
-<proj_name></proj_name>
-<msg_type></msg_type>
-<msg_content>No work sent</msg_content>
-</exclude_proj_msg>
-
-
-<exclude_proj_msg>
-<proj_name></proj_name>
-<msg_type></msg_type>
-<msg_content>No work is available</msg_content>
-</exclude_proj_msg>
-
-
-  </options>
+ <log_flags>
+  <task>0</task>
+  <work_fetch_debug>0</work_fetch_debug>
+  <file_xfer>0</file_xfer>
+  <sched_ops>0</sched_ops>
+  <mw_debug>0</mw_debug>
+  <debug_proj_msg>0</debug_proj_msg>
+ </log_flags>
+ <options>
+  <use_all_gpus>1</use_all_gpus>
+  <allow_remote_gui_rpc>1</allow_remote_gui_rpc>
+  <mw_low_water_pct>1</mw_low_water_pct>
+  <mw_high_water_pct>16</mw_high_water_pct>
+  <mw_wait_interval>256</mw_wait_interval>
+  <exclude_proj_msg>
+   <proj_name></proj_name>  <!-- project name with correct syntax are listed in event messages -->
+   <msg_type>low</msg_type>
+  </exclude_proj_msg>
+  <exclude_proj_msg>
+   <proj_name></proj_name>
+   <msg_content>settings do not allow fetching tasks</msg_content>
+  </exclude_proj_msg>
+  <exclude_proj_msg>
+   <proj_name></proj_name>
+   <msg_content>No work available</msg_content>
+  </exclude_proj_msg>
+  <exclude_proj_msg>
+   <proj_name></proj_name>
+   <msg_content>No work sent</msg_content>
+  </exclude_proj_msg>
+  <exclude_proj_msg>
+   <proj_name></proj_name>
+   <msg_content>No work is available</msg_content>
+  </exclude_proj_msg>
+  <exclude_proj_msg>
+   <proj_name></proj_name>
+   <msg_content>Resent lost</msg_content>
+  </exclude_proj_msg>
+  <exclude_proj_msg>
+   <proj_name></proj_name>
+   <msg_content>resent lost</msg_content>
+  </exclude_proj_msg>
+  <exclude_proj_msg>
+   <proj_name></proj_name>
+   <msg_content>already reported</msg_content>
+  </exclude_proj_msg>
+<!--
+  <spoof_nvidia>4</spoof_nvidia>
+  <spoof_ati>3</spoof_ati>
+  <spoof_intel>2</spoof_intel>
+-->
+ </options>
 </cc_config>
-
