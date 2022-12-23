@@ -16,13 +16,13 @@ Filtering of project messages is done in the options section of cc_config.xml an
 hiding messages that obscure the limited amount of space visible in the event log.  In addition, 
 some non-project messages such as "Backing off" are displayed only when the project name changes.
 ```
-<exclude_proj_msg>       <!-- put this in the flags section, not the options section -->
+<exclude_proj_msg>       
 <proj_name></proj_name>  <!-- project name with correct syntax are isted in event messages -->
 <msg_type>low</msg_type>
 <msg_content></msg_content>  <!-- if enmpty, all are excluded -->
 </exclude_proj_msg>
 ```
-Some useful filters
+Some useful filters.  Each of below must fit between "exclude_proj_msg" 
 ```
 <msg_content>settings do not allow fetching tasks</msg_content>
 <msg_content>No work available</msg_content>
